@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Carpool_Buddy_Sam">
         <activity
+            android:name=".VehicleInfo"
+            android:exported="false" />
+        <activity
+            android:name=".UserProfile"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".AuthActivity"
             android:exported="true">
             <intent-filter>
