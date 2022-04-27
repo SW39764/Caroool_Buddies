@@ -15,6 +15,13 @@ public class Alumni extends User{
         this.graduateYear = graduateYear;
     }
 
+//    Alumni newUser = new Alumni(uid, nameString, emailString, gradYearInt);
+
+    public Alumni(String uid, String name, String email, int graduateYear){
+        super(uid, name, email, "Alumni", 1, null);
+        this.graduateYear = graduateYear;
+    }
+
     public int getGraduateYear() {
         return graduateYear;
     }
@@ -35,4 +42,6 @@ public class Alumni extends User{
                 ", graduateYear=" + graduateYear +
                 '}';
     }
+
+
 }

@@ -19,8 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AuthActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore firestore;
+    static public FirebaseAuth mAuth;
+    static public FirebaseFirestore firestore;
 
     private EditText emailField;
     private EditText passwordField;
@@ -52,6 +52,8 @@ public class AuthActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+//                            firestore.collection("test").document("doc").set();
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("SIGNIN SUCESSFULL", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -100,6 +102,15 @@ public class AuthActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void otherLogin(View v){
+        Intent intent = new Intent(this, CreateUserActivity.class);
+        startActivity(intent);
+    }
+
+    public static FirebaseAuth getMAuth(){
+        return mAuth;
     }
 
 }
