@@ -8,7 +8,9 @@
         <entry key="..\:/Users/weisz/AndroidStudioProjects/Carpool_Buddy_Sam/app/src/main/res/layout/activity_main.xml" value="0.30932971014492755" />
         <entry key="..\:/Users/weisz/AndroidStudioProjects/Carpool_Buddy_Sam/app/src/main/res/layout/activity_user_profile.xml" value="0.37395833333333334" />
         <entry key="..\:/Users/weisz/AndroidStudioProjects/Carpool_Buddy_Sam/app/src/main/res/layout/activity_vehicle_info.xml" value="0.33" />
+        <entry key="..\:/Users/weisz/AndroidStudioProjects/Carpool_Buddy_Sam/app/src/main/res/layout/activity_vehicles_recycler.xml" value="0.4114583333333333" />
         <entry key="..\:/Users/weisz/AndroidStudioProjects/Carpool_Buddy_Sam/app/src/main/res/layout/auth_activity.xml" value="0.36141304347826086" />
+        <entry key="..\:/Users/weisz/AndroidStudioProjects/Carpool_Buddy_Sam/app/src/main/res/layout/vehicle_row_view.xml" value="0.4114583333333333" />
       </map>
     </option>
   </component>
