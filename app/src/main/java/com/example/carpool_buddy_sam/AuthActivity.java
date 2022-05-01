@@ -109,8 +109,5 @@ public class AuthActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static FirebaseAuth getMAuth(){
-        return mAuth;
-    }
 
 }

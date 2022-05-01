@@ -35,6 +35,8 @@ public class CreateUserActivity extends AppCompatActivity {
     private EditText passwordField;
     private EditText nameField;
     private EditText gradYearField;
+    private EditText parentUIDField;
+    private EditText inSchoolTitleField;
 
     private Spinner userRoleSpinner;
     private String selectedRole;
@@ -52,6 +54,10 @@ public class CreateUserActivity extends AppCompatActivity {
         setupSpinner();
         uid = "" + uidGenerator;
         uidGenerator++;
+    }
+
+    public int randInt(){
+        return (int) (Math.random() * 100000);
     }
 
     // setup spinner where user selects what user type they want to make an account for
@@ -86,6 +92,23 @@ public class CreateUserActivity extends AppCompatActivity {
             gradYearField.setHint("Graduation year");
             layout.addView(gradYearField);
         }
+        if(selectedRole.equals("Student")) {
+            gradYearField = new EditText(this);
+            parentUIDField = new EditText(this);
+
+            gradYearField.setHint("Graduation year");
+            parentUIDField.setHint("Parent UID");
+
+            layout.addView(gradYearField);
+            layout.addView(parentUIDField);
+
+        }
+
+        if(selectedRole.equals("Teacher")) {
+            inSchoolTitleField = new EditText(this);
+            inSchoolTitleField.setHint("In-school title");
+            layout.addView(inSchoolTitleField);
+        }
     }
 
     public void commonFields() {
@@ -103,6 +126,8 @@ public class CreateUserActivity extends AppCompatActivity {
 
 
     public void signUp(View v) {
+        String id = "" + randInt();
+
         String nameString = nameField.getText().toString();
         String emailString = emailField.getText().toString();
         String passwordString = passwordField.getText().toString();
@@ -124,9 +149,9 @@ public class CreateUserActivity extends AppCompatActivity {
                 });
         if(selectedRole.equals("Alumni")) {
             int gradYearInt = Integer.parseInt(gradYearField.getText().toString());
-            Alumni newUser = new Alumni(uid, nameString, emailString, gradYearInt);
+            Alumni newUser = new Alumni(id, nameString, emailString, gradYearInt);
             uidGenerator++;
-            firestore.collection("people").document(uid).set(newUser);
+            firestore.collection("people").document(id).set(newUser);
         }
     }
 

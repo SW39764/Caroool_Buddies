@@ -8,7 +8,11 @@ public class Bycicle extends Vehicle{
     private int weight;
     private int weightCapacity;
 
-    public Bycicle(String owner, String model, int capacity, String vehicleID, ArrayList<String> ridersUIDs, boolean open, String vehicleType, double basePrice, String bycileType, int weight, int weightCapacity) {
+    public Bycicle(String owner, String model, int capacity,
+                   String vehicleID, ArrayList<String> ridersUIDs,
+                   boolean open, String vehicleType, double basePrice,
+                   String bycileType, int weight, int weightCapacity) {
+
         super(owner, model, capacity, vehicleID, ridersUIDs, open, vehicleType, basePrice);
         this.bycileType = bycileType;
         this.weight = weight;

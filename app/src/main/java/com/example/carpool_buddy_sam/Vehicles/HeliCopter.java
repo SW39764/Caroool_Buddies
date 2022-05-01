@@ -11,7 +11,12 @@ public class HeliCopter extends Vehicle{
         super();
     }
 
-    public HeliCopter(String owner, String model, int capacity, String vehicleID, ArrayList<String> ridersUIDs, boolean open, String vehicleType, double basePrice, int maxAltitude, int maxAirSpeed) {
+    public HeliCopter(String owner,
+                      String model, int capacity,
+                      String vehicleID, ArrayList<String> ridersUIDs,
+                      boolean open, String vehicleType, double basePrice,
+                      int maxAltitude, int maxAirSpeed) {
+
         super(owner, model, capacity, vehicleID, ridersUIDs, open, vehicleType, basePrice);
         this.maxAltitude = maxAltitude;
         this.maxAirSpeed = maxAirSpeed;
