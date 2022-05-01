@@ -50,32 +50,32 @@ public class VehicleInfo extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void testDB(View v) {
-        vehiclesList.clear();
-        TaskCompletionSource<String> getAllRidesTask = new TaskCompletionSource<>();
-        firestore.collection(com.example.carpool_buddy_sam.Constants.VEHICLE_COLLECTION).whereEqualTo("open", true)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful() && task.getResult() != null) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        vehiclesList.add(document.toObject(Vehicle.class));
-                    }
-                    getAllRidesTask.setResult(null);
-                }
-                else {
-                    Log.d("VehiclesInfoActivity", "Error getting documents from db: ", task.getException());
-                }
-            }
-        });
-        // when all rides have been retrieved, update RecyclerView
-        getAllRidesTask.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                System.out.println("VEHICLE INFO: " + vehiclesList.toString());
-            }
-        });
-    }
+//    public void testDB(View v) {
+//        vehiclesList.clear();
+//        TaskCompletionSource<String> getAllRidesTask = new TaskCompletionSource<>();
+//        firestore.collection(com.example.carpool_buddy_sam.Constants.VEHICLE_COLLECTION).whereEqualTo("open", true)
+//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful() && task.getResult() != null) {
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        vehiclesList.add(document.toObject(Vehicle.class));
+//                    }
+//                    getAllRidesTask.setResult(null);
+//                }
+//                else {
+//                    Log.d("VehiclesInfoActivity", "Error getting documents from db: ", task.getException());
+//                }
+//            }
+//        });
+//        // when all rides have been retrieved, update RecyclerView
+//        getAllRidesTask.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+//            @Override
+//            public void onComplete(@NonNull Task<String> task) {
+//                System.out.println("VEHICLE INFO: " + vehiclesList.toString());
+//            }
+//        });
+//    }
 
     public void gotoUserProfile(View v) {
 //        Intent intent = new Intent(this, MainActivity.class);
