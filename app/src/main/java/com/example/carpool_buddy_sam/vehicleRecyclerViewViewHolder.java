@@ -7,11 +7,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class vehicleRecyclerViewViewHolder extends RecyclerView.ViewHolder {
-    protected TextView vehicleInfo;
+    protected TextView vehicleModel;
+    protected TextView vehicleType;
+    protected TextView vehicleCapacity;
 
     public vehicleRecyclerViewViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        vehicleInfo = itemView.findViewById(R.id.vehicleInfo);
+        vehicleType = itemView.findViewById(R.id.vehicleType);
+        vehicleModel = itemView.findViewById(R.id.vehicleModel);
+        vehicleCapacity = itemView.findViewById(R.id.vehicleCapacity);
     }
 }

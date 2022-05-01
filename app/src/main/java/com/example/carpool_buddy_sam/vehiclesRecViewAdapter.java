@@ -13,10 +13,15 @@ import java.util.ArrayList;
 
 public class vehiclesRecViewAdapter extends RecyclerView.Adapter<vehicleRecyclerViewViewHolder>{
 
-    ArrayList<Vehicle> vehicles;
+//    ArrayList<Vehicle> vehicles;
+    ArrayList<String> type;
+    ArrayList<String> model;
+    ArrayList<Integer> capacity;
 
-    public vehiclesRecViewAdapter(ArrayList<Vehicle> vehicles) {
-        this.vehicles = vehicles;
+    public vehiclesRecViewAdapter(ArrayList<String> model, ArrayList<String> type, ArrayList<Integer> capacity) {
+        this.model = model;
+        this.type = type;
+        this.capacity = capacity;
     }
 
 
@@ -35,11 +40,14 @@ public class vehiclesRecViewAdapter extends RecyclerView.Adapter<vehicleRecycler
 
     @Override
     public void onBindViewHolder(@NonNull vehicleRecyclerViewViewHolder holder, int position) {
-        holder.vehicleInfo.setText(vehicles.get(position).toString());
+        holder.vehicleModel.setText("Model : " + model.get(position).toString());
+        holder.vehicleType.setText("Type : " + type.get(position).toString());
+        holder.vehicleCapacity.setText("Capacity : " + capacity.get(position).toString());
+
     }
 
     @Override
     public int getItemCount() {
-        return vehicles.size();
+        return model.size();
     }
 }

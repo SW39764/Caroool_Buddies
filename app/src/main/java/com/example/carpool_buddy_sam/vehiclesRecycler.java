@@ -33,6 +33,12 @@ public class vehiclesRecycler extends AppCompatActivity {
 
     private ArrayList<Vehicle> vehiclesList;
 
+    private ArrayList<String> ownerList;
+    private ArrayList<String> typeList;
+    private ArrayList<Integer> capacityList;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,9 @@ public class vehiclesRecycler extends AppCompatActivity {
         setContentView(R.layout.activity_vehicles_recycler);
 
         vehiclesList = new ArrayList<Vehicle>();
+        ownerList = new ArrayList<String>();
+        typeList = new ArrayList<String>();
+        capacityList = new ArrayList<Integer>();
 
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -80,7 +89,7 @@ public class vehiclesRecycler extends AppCompatActivity {
 
     public void CreateAdapter(ArrayList<Vehicle> vehicles){
 
-        vehiclesRecViewAdapter myAdapter = new vehiclesRecViewAdapter(vehicles);
+        vehiclesRecViewAdapter myAdapter = new vehiclesRecViewAdapter(ownerList, typeList, capacityList);
 
         recView.setAdapter(myAdapter);
         recView.setLayoutManager(new LinearLayoutManager(this));
@@ -102,20 +111,36 @@ public class vehiclesRecycler extends AppCompatActivity {
                         if (type.equals("segway")){
                             System.out.println("Added : " + document.toObject(Segway.class));
 
-                            vehiclesList.add(document.toObject(Segway.class));
+                            Vehicle temp = (Vehicle) (document.toObject(Segway.class));
+
+                            ownerList.add(temp.getOwner());
+                            typeList.add(temp.getVehicleType());
+                            capacityList.add(temp.getCapacity());
                         }
                         if(type.equals("car")){
                             System.out.println("Added : " + document.toObject(Car.class));
 
-                            vehiclesList.add(document.toObject(Car.class));
+                            Vehicle temp = (Vehicle) (document.toObject(Car.class));
+
+                            ownerList.add(temp.getOwner());
+                            typeList.add(temp.getVehicleType());
+                            capacityList.add(temp.getCapacity());
                         }
                         if(type.equals("helicopter")){
                             System.out.println("Added : " + document.toObject(HeliCopter.class));
-                            vehiclesList.add(document.toObject(HeliCopter.class));
+                            Vehicle temp = (Vehicle) (document.toObject(HeliCopter.class));
+
+                            ownerList.add(temp.getOwner());
+                            typeList.add(temp.getVehicleType());
+                            capacityList.add(temp.getCapacity());
                         }
                         if(type.equals("bycicle")){
                             System.out.println("Added : " + document.toObject(Bycicle.class));
-                            vehiclesList.add(document.toObject(Bycicle.class));
+                            Vehicle temp = (Vehicle) (document.toObject(Bycicle.class));
+
+                            ownerList.add(temp.getOwner());
+                            typeList.add(temp.getVehicleType());
+                            capacityList.add(temp.getCapacity());
                         }
 
 //                        System.out.println("Added a vehicle" + (Vehicle) document.toObject(Vehicle.class));
