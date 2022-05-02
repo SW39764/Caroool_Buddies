@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
     private ArrayList<String> typeList;
     private ArrayList<Integer> capacityList;
 
-    private ArrayList<Vehicle> finishedList;
+    static public ArrayList<Vehicle> finishedList;
 
 
 
@@ -166,10 +167,7 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 
         Intent intent = new Intent(this, specific_vehicle_info.class);
 
-        System.out.println("VehiclesList: " + finishedList.toString());
-        intent.putExtra("vehicle", finishedList.get(position));
-
-        System.out.println("typeList: " + typeList.get(position));
+        intent.putExtra("pos",  position);
         intent.putExtra("type", typeList.get(position));
 
         startActivity(intent);

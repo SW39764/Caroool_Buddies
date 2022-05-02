@@ -1,8 +1,10 @@
 package com.example.carpool_buddy_sam.Vehicles;
 
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Car extends Vehicle{
+public class Car extends Vehicle {
 
     private int range;
 
