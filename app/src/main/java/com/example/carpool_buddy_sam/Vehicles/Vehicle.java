@@ -3,7 +3,7 @@ package com.example.carpool_buddy_sam.Vehicles;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Vehicle implements Serializable {
+public class Vehicle implements Serializable{
 
     private  String owner;
     private String model;

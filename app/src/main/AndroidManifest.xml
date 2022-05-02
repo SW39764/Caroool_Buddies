@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Carpool_Buddy_Sam">
         <activity
+            android:name=".specific_vehicle_info"
+            android:exported="false" />
+        <activity
             android:name=".vehiclesRecycler"
             android:exported="false" />
         <activity

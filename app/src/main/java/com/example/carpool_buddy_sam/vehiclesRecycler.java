@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.example.carpool_buddy_sam.Vehicles.Bycicle;
@@ -24,7 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class vehiclesRecycler extends AppCompatActivity {
+public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecViewAdapter.OnNoteListener {
 
     RecyclerView recView;
 
@@ -36,6 +38,9 @@ public class vehiclesRecycler extends AppCompatActivity {
     private ArrayList<String> ownerList;
     private ArrayList<String> typeList;
     private ArrayList<Integer> capacityList;
+
+    private ArrayList<Vehicle> finishedList;
+
 
 
 
@@ -52,6 +57,8 @@ public class vehiclesRecycler extends AppCompatActivity {
         typeList = new ArrayList<String>();
         capacityList = new ArrayList<Integer>();
 
+        finishedList = new ArrayList<Vehicle>();
+
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
@@ -60,43 +67,18 @@ public class vehiclesRecycler extends AppCompatActivity {
 
         getVehicles();
 
-
-//        ArrayList<Vehicle> vehiclesList = new ArrayList<Vehicle>();
-//        Vehicle vehicle = new Segway("String owner", "String model", 12, "String vehicleID",
-//                null, true, "String vehicleType",
-//        12.2, 12, 321);
-//        vehiclesList.add(vehicle);
-
-
-//        ArrayList<Vehicle> allVehicles = getVehicles();
-
-//        System.out.println("allVehicles: " + vehiclesList);
-
-
-//        System.out.println();
-//        System.out.println();
-//        System.out.println();
-//        System.out.println();
-//        System.out.println();
-//        System.out.println();
-//        System.out.println("VehiclesList: " + allVehicles);
-
-
-//        System.out.println("Just before creating adapter");
-
-
     }
 
-    public void CreateAdapter(ArrayList<Vehicle> vehicles){
+    public void CreateAdapter(){
 
-        vehiclesRecViewAdapter myAdapter = new vehiclesRecViewAdapter(ownerList, typeList, capacityList);
+        vehiclesRecViewAdapter myAdapter = new vehiclesRecViewAdapter(ownerList, typeList, capacityList, this);
 
         recView.setAdapter(myAdapter);
         recView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void getVehicles(){
-        vehiclesList.clear();
+//        vehiclesList.clear();
         TaskCompletionSource<String> getAllRidesTask = new TaskCompletionSource<>();
         firestore.collection(com.example.carpool_buddy_sam.Constants.VEHICLE_COLLECTION).whereEqualTo("open", true)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -113,6 +95,8 @@ public class vehiclesRecycler extends AppCompatActivity {
 
                             Vehicle temp = (Vehicle) (document.toObject(Segway.class));
 
+                            finishedList.add(temp);
+
                             ownerList.add(temp.getOwner());
                             typeList.add(temp.getVehicleType());
                             capacityList.add(temp.getCapacity());
@@ -122,6 +106,8 @@ public class vehiclesRecycler extends AppCompatActivity {
 
                             Vehicle temp = (Vehicle) (document.toObject(Car.class));
 
+                            finishedList.add(temp);
+
                             ownerList.add(temp.getOwner());
                             typeList.add(temp.getVehicleType());
                             capacityList.add(temp.getCapacity());
@@ -130,6 +116,8 @@ public class vehiclesRecycler extends AppCompatActivity {
                             System.out.println("Added : " + document.toObject(HeliCopter.class));
                             Vehicle temp = (Vehicle) (document.toObject(HeliCopter.class));
 
+                            finishedList.add(temp);
+
                             ownerList.add(temp.getOwner());
                             typeList.add(temp.getVehicleType());
                             capacityList.add(temp.getCapacity());
@@ -137,6 +125,8 @@ public class vehiclesRecycler extends AppCompatActivity {
                         if(type.equals("bycicle")){
                             System.out.println("Added : " + document.toObject(Bycicle.class));
                             Vehicle temp = (Vehicle) (document.toObject(Bycicle.class));
+
+                            finishedList.add(temp);
 
                             ownerList.add(temp.getOwner());
                             typeList.add(temp.getVehicleType());
@@ -159,9 +149,9 @@ public class vehiclesRecycler extends AppCompatActivity {
         getAllRidesTask.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
-                System.out.println("VEHICLE INFO: " + vehiclesList.toString());
 
-                CreateAdapter(vehiclesList);
+                CreateAdapter();
+//                System.out.println("VEHICLES ALL INFO: " + finishedList.toString());
             }
         });
 
@@ -169,4 +159,19 @@ public class vehiclesRecycler extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onNoteClick(int position) {
+        System.out.println("CLICKED: " + position);
+
+        Intent intent = new Intent(this, specific_vehicle_info.class);
+
+        System.out.println("VehiclesList: " + finishedList.toString());
+        intent.putExtra("vehicle", finishedList.get(position));
+
+        System.out.println("typeList: " + typeList.get(position));
+        intent.putExtra("type", typeList.get(position));
+
+        startActivity(intent);
+    }
 }
