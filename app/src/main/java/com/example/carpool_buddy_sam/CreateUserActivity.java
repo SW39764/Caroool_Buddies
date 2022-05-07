@@ -18,11 +18,15 @@ import com.example.carpool_buddy_sam.Users.Alumni;
 //import com.example.carpoolbuddy.Models.Alumni;
 //import com.example.carpoolbuddy.Models.User;
 //import com.example.carpoolbuddy.R;
+import com.example.carpool_buddy_sam.Users.Parent;
+import com.example.carpool_buddy_sam.Users.Student;
+import com.example.carpool_buddy_sam.Users.Teacher;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -40,8 +44,7 @@ public class CreateUserActivity extends AppCompatActivity {
 
     private Spinner userRoleSpinner;
     private String selectedRole;
-    private String uid;
-    private static int uidGenerator = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +55,7 @@ public class CreateUserActivity extends AppCompatActivity {
         layout = findViewById(R.id.linearLayoutCreateUser);
         userRoleSpinner = findViewById(R.id.selectTypeSpinner);
         setupSpinner();
-        uid = "" + uidGenerator;
-        uidGenerator++;
+
     }
 
     public int randInt(){
@@ -147,12 +149,37 @@ public class CreateUserActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
+        DocumentReference newUserRef = firestore.collection(Constants.USER_COLLECTION).document();
+        String userID = newUserRef.getId();
+
+
         if(selectedRole.equals("Alumni")) {
             int gradYearInt = Integer.parseInt(gradYearField.getText().toString());
-            Alumni newUser = new Alumni(id, nameString, emailString, gradYearInt);
-            uidGenerator++;
-            firestore.collection("people").document(id).set(newUser);
+            Alumni newUser = new Alumni(userID, nameString, emailString, gradYearInt);
+//            firestore.collection("people").document(userID).set(newUser);
+            newUserRef.set(newUser);
         }
+        else if(selectedRole.equals("Student")) {
+            String gradYear = gradYearField.getText().toString();
+            Student newUser = new Student(userID, nameString, emailString, gradYear);
+            newUserRef.set(newUser);
+
+        }
+        else if(selectedRole.equals("Parent")) {
+            Parent newUser = new Parent(userID, nameString, emailString);
+            newUserRef.set(newUser);
+        }
+        else if(selectedRole.equals("Teacher")) {
+            String inSchoolName = inSchoolTitleField.getText().toString();
+            Teacher newUser = new Teacher(userID, nameString, emailString, inSchoolName);
+            newUserRef.set(newUser);
+        }
+
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        updateUI(user);
     }
 
     public void updateUI(FirebaseUser currentUser) {

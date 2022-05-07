@@ -6,7 +6,9 @@ public class Teacher extends User{
 
     private String inSchoolTitle;
 
-    public Teacher() {
+    public Teacher(String userID, String nameString, String emailString, String inSchoolTitle) {
+        super(userID, nameString, emailString, "Teacher", 1.0, null);
+        this.inSchoolTitle = inSchoolTitle;
     }
 
     public Teacher(String uid, String name, String email, String userType, double priceMultiplier, ArrayList<String> ownedVehicles, String inSchoolTitle) {

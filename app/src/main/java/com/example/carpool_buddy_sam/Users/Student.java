@@ -17,6 +17,11 @@ public class Student extends User{
         this.parentUID = parentUID;
     }
 
+    public Student(String userID, String nameString, String emailString, String gradYear) {
+        super(userID, nameString, emailString, "Student", 1.0, null);
+        this.graduateYear = gradYear;
+    }
+
     public String getGraduateYear() {
         return graduateYear;
     }
