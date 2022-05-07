@@ -16,16 +16,16 @@ import java.util.ArrayList;
 public class vehiclesRecViewAdapter extends RecyclerView.Adapter<vehicleRecyclerViewViewHolder>{
 
 //    ArrayList<Vehicle> vehicles;
-    ArrayList<String> type;
-    ArrayList<String> model;
+//    ArrayList<String> type;
+//    ArrayList<String> model;
     ArrayList<Integer> capacity;
+
+    ArrayList<Vehicle> vehicles;
 
     private OnNoteListener mOnNoteListener;
 
-    public vehiclesRecViewAdapter(ArrayList<String> model, ArrayList<String> type, ArrayList<Integer> capacity, OnNoteListener monNoteListener) {
-        this.model = model;
-        this.type = type;
-        this.capacity = capacity;
+    public vehiclesRecViewAdapter(ArrayList<Vehicle> vehicles, OnNoteListener monNoteListener) {
+        this.vehicles = vehicles;
         this.mOnNoteListener = monNoteListener;
     }
 
@@ -45,15 +45,22 @@ public class vehiclesRecViewAdapter extends RecyclerView.Adapter<vehicleRecycler
 
     @Override
     public void onBindViewHolder(@NonNull vehicleRecyclerViewViewHolder holder, int position) {
-        holder.vehicleModel.setText("Model : " + model.get(position).toString());
-        holder.vehicleType.setText("Type : " + type.get(position).toString());
-        holder.vehicleCapacity.setText("Capacity : " + capacity.get(position).toString());
+        String model = vehicles.get(position).getModel();
+        String type = vehicles.get(position).getVehicleType();
+        String capacity = "" + vehicles.get(position).getCapacity();
+        String basePrice = "" + vehicles.get(position).getBasePrice();
+
+
+        holder.vehicleModel.setText("Model : " + model);
+        holder.vehicleType.setText("Type : " + type);
+        holder.vehicleCapacity.setText("Capacity : " + capacity);
+        holder.vehicleBasePrice.setText("Base Price : " + basePrice);
 
     }
 
     @Override
     public int getItemCount() {
-        return model.size();
+        return vehicles.size();
     }
 
     public interface OnNoteListener {

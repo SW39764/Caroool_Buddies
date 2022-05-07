@@ -10,6 +10,7 @@ public class vehicleRecyclerViewViewHolder extends RecyclerView.ViewHolder imple
     protected TextView vehicleModel;
     protected TextView vehicleType;
     protected TextView vehicleCapacity;
+    protected TextView vehicleBasePrice;
 
 
 
@@ -25,6 +26,7 @@ public class vehicleRecyclerViewViewHolder extends RecyclerView.ViewHolder imple
         vehicleType = itemView.findViewById(R.id.vehicleType);
         vehicleModel = itemView.findViewById(R.id.vehicleModel);
         vehicleCapacity = itemView.findViewById(R.id.vehicleCapacity);
+        vehicleBasePrice = itemView.findViewById(R.id.vehicleBasePrice);
 
     }
 

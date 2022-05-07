@@ -36,9 +36,9 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 
     private ArrayList<Vehicle> vehiclesList;
 
-    private ArrayList<String> ownerList;
-    private ArrayList<String> typeList;
-    private ArrayList<Integer> capacityList;
+//    private ArrayList<String> ownerList;
+//    private ArrayList<String> typeList;
+//    private ArrayList<Integer> capacityList;
 
     static public ArrayList<Vehicle> finishedList;
 
@@ -54,9 +54,9 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
         setContentView(R.layout.activity_vehicles_recycler);
 
         vehiclesList = new ArrayList<Vehicle>();
-        ownerList = new ArrayList<String>();
-        typeList = new ArrayList<String>();
-        capacityList = new ArrayList<Integer>();
+//        ownerList = new ArrayList<String>();
+//        typeList = new ArrayList<String>();
+//        capacityList = new ArrayList<Integer>();
 
         finishedList = new ArrayList<Vehicle>();
 
@@ -72,7 +72,7 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 
     public void CreateAdapter(){
 
-        vehiclesRecViewAdapter myAdapter = new vehiclesRecViewAdapter(ownerList, typeList, capacityList, this);
+        vehiclesRecViewAdapter myAdapter = new vehiclesRecViewAdapter(finishedList, this);
 
         recView.setAdapter(myAdapter);
         recView.setLayoutManager(new LinearLayoutManager(this));
@@ -98,9 +98,9 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 
                             finishedList.add(temp);
 
-                            ownerList.add(temp.getOwner());
-                            typeList.add(temp.getVehicleType());
-                            capacityList.add(temp.getCapacity());
+//                            ownerList.add(temp.getOwner());
+//                            typeList.add(temp.getVehicleType());
+//                            capacityList.add(temp.getCapacity());
                         }
                         if(type.equals("car")){
                             System.out.println("Added : " + document.toObject(Car.class));
@@ -108,30 +108,30 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
                             Vehicle temp = (Vehicle) (document.toObject(Car.class));
 
                             finishedList.add(temp);
-
-                            ownerList.add(temp.getOwner());
-                            typeList.add(temp.getVehicleType());
-                            capacityList.add(temp.getCapacity());
+//
+//                            ownerList.add(temp.getOwner());
+//                            typeList.add(temp.getVehicleType());
+//                            capacityList.add(temp.getCapacity());
                         }
                         if(type.equals("helicopter")){
                             System.out.println("Added : " + document.toObject(HeliCopter.class));
                             Vehicle temp = (Vehicle) (document.toObject(HeliCopter.class));
 
                             finishedList.add(temp);
-
-                            ownerList.add(temp.getOwner());
-                            typeList.add(temp.getVehicleType());
-                            capacityList.add(temp.getCapacity());
+//
+//                            ownerList.add(temp.getOwner());
+//                            typeList.add(temp.getVehicleType());
+//                            capacityList.add(temp.getCapacity());
                         }
                         if(type.equals("bycicle")){
                             System.out.println("Added : " + document.toObject(Bycicle.class));
                             Vehicle temp = (Vehicle) (document.toObject(Bycicle.class));
 
                             finishedList.add(temp);
-
-                            ownerList.add(temp.getOwner());
-                            typeList.add(temp.getVehicleType());
-                            capacityList.add(temp.getCapacity());
+//
+//                            ownerList.add(temp.getOwner());
+//                            typeList.add(temp.getVehicleType());
+//                            capacityList.add(temp.getCapacity());
                         }
 
 //                        System.out.println("Added a vehicle" + (Vehicle) document.toObject(Vehicle.class));
@@ -167,8 +167,8 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 
         Intent intent = new Intent(this, specific_vehicle_info.class);
 
-        intent.putExtra("pos",  position);
-        intent.putExtra("type", typeList.get(position));
+//        intent.putExtra("pos",  position);
+        intent.putExtra("id", "" + finishedList.get(position).getVehicleID());
 
         startActivity(intent);
     }
