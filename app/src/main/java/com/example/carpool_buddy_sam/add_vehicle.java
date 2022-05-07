@@ -19,6 +19,7 @@ import com.example.carpool_buddy_sam.Vehicles.HeliCopter;
 import com.example.carpool_buddy_sam.Vehicles.Segway;
 import com.example.carpool_buddy_sam.Vehicles.Vehicle;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -28,8 +29,6 @@ public class add_vehicle extends AppCompatActivity {
     private EditText vehicleName;
     private Spinner userRoleSpinner;
     private LinearLayout layout;
-    private String uid;
-    private static int uidGenerator = 1;
     private String selectedRole;
 
 //    private EditText owner;
@@ -42,9 +41,6 @@ public class add_vehicle extends AppCompatActivity {
     private EditText maxAltitude;
     private EditText maxAirSpeed;
 
-    public int randInt(){
-        return (int) (Math.random() * 100000);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,57 +52,55 @@ public class add_vehicle extends AppCompatActivity {
         layout = findViewById(R.id.linearLayoutAddVehicle);
         userRoleSpinner = findViewById(R.id.spinnerAddVehicle);
         setupSpinner();
-        uid = "" + uidGenerator;
-        uidGenerator++;
+
 
 //        vehicleName = findViewById(R.id.editTextName);
     }
 
     public void addVehicle(View v){
-        String id = "" + randInt();
+        DocumentReference newVehicleRef = firestore.collection(Constants.VEHICLE_COLLECTION).document();
+        String vehicleID = newVehicleRef.getId();
 
-
-//        System.out.println(vehicleName.getText().toString());
 
         ArrayList<String> riders = new ArrayList<>();
         String randId = "" + ((int) Math.random() * 1000);
 
         if(selectedRole.equals("Car")){
-            Car vehicleToAdd = new Car("Owner", model.getText().toString(),
+            Car vehicleToAdd = new Car(mAuth.getCurrentUser().getUid(), model.getText().toString(),
                     Integer.parseInt(capacity.getText().toString()),
-            id, null, true, "car",
+            vehicleID, riders, true, "car",
                     Double.parseDouble(basePrice.getText().toString()),
                     Integer.parseInt(range.getText().toString()));
 
-            firestore.collection("Vehicles").document("vehicle" + id).set(vehicleToAdd);
+            newVehicleRef.set(vehicleToAdd);
 
         }
 
         if(selectedRole.equals("Bycicle")){
             Bycicle vehicleToAdd = new Bycicle("Owner", model.getText().toString(),
                     Integer.parseInt(capacity.getText().toString()),
-                    id, null, true, "bike",
+                    vehicleID, riders, true, "bike",
                     Double.parseDouble(basePrice.getText().toString()),
                     "modern", Integer.parseInt(weight.getText().toString()),
                     Integer.parseInt(weightCapacity.getText().toString()));
 
-            firestore.collection("Vehicles").document("vehicle" + id).set(vehicleToAdd);
+            newVehicleRef.set(vehicleToAdd);
         }
         if(selectedRole.equals("Helicopter")){
             HeliCopter vehicleToAdd = new HeliCopter("Owner", model.getText().toString(),Integer.parseInt(capacity.getText().toString()),
-                    id, null, true, "helicopter", Double.parseDouble(basePrice.getText().toString()),
+                    vehicleID, riders, true, "helicopter", Double.parseDouble(basePrice.getText().toString()),
                     Integer.parseInt(maxAltitude.getText().toString()), Integer.parseInt(maxAirSpeed.getText().toString()));
 
 
-            firestore.collection("Vehicles").document("vehicle" + id).set(vehicleToAdd);
+            newVehicleRef.set(vehicleToAdd);
         }
 
         if(selectedRole.equals("Segway")){
             Segway vehicleToAdd = new Segway("Owner", model.getText().toString(),Integer.parseInt(capacity.getText().toString()),
-                    id, null, true, "segway", Double.parseDouble(basePrice.getText().toString()), Integer.parseInt(range.getText().toString()),
+                    vehicleID, riders, true, "segway", Double.parseDouble(basePrice.getText().toString()), Integer.parseInt(range.getText().toString()),
                     Integer.parseInt(weightCapacity.getText().toString()));
 
-            firestore.collection("Vehicles").document("vehicle" + id).set(vehicleToAdd);
+            newVehicleRef.set(vehicleToAdd);
         }
 
 
