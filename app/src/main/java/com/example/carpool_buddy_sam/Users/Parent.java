@@ -6,7 +6,7 @@ public class Parent extends User{
     private ArrayList<String> childrenUIDs;
 
     public Parent(String userID, String nameString, String emailString){
-        super(userID, nameString, emailString, "parent", 1.0, null);
+        super(userID, nameString, emailString, "parent", 1.0, new ArrayList<String>());
     }
 
     public Parent(String uid, String name, String email, String userType, double priceMultiplier, ArrayList<String> ownedVehicles, ArrayList<String> childrenUIDs) {

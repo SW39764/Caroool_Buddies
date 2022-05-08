@@ -21,6 +21,7 @@ import com.example.carpool_buddy_sam.Users.Alumni;
 import com.example.carpool_buddy_sam.Users.Parent;
 import com.example.carpool_buddy_sam.Users.Student;
 import com.example.carpool_buddy_sam.Users.Teacher;
+import com.example.carpool_buddy_sam.Vehicles.Vehicle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

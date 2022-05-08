@@ -18,7 +18,7 @@ public class Alumni extends User{
 //    Alumni newUser = new Alumni(uid, nameString, emailString, gradYearInt);
 
     public Alumni(String uid, String name, String email, int graduateYear){
-        super(uid, name, email, "Alumni", 1, null);
+        super(uid, name, email, "Alumni", 1, new ArrayList<String>());
         this.graduateYear = graduateYear;
     }
 

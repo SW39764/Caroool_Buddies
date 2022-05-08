@@ -18,7 +18,7 @@ public class Student extends User{
     }
 
     public Student(String userID, String nameString, String emailString, String gradYear) {
-        super(userID, nameString, emailString, "Student", 1.0, null);
+        super(userID, nameString, emailString, "Student", 1.0, new ArrayList<String>());
         this.graduateYear = gradYear;
     }
 

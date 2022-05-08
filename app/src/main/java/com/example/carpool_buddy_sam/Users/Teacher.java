@@ -1,5 +1,8 @@
 package com.example.carpool_buddy_sam.Users;
 
+import com.example.carpool_buddy_sam.Vehicles.Vehicle;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Teacher extends User{
@@ -7,7 +10,7 @@ public class Teacher extends User{
     private String inSchoolTitle;
 
     public Teacher(String userID, String nameString, String emailString, String inSchoolTitle) {
-        super(userID, nameString, emailString, "Teacher", 1.0, null);
+        super(userID, nameString, emailString, "Teacher", 1.0, new ArrayList<String>());
         this.inSchoolTitle = inSchoolTitle;
     }
 

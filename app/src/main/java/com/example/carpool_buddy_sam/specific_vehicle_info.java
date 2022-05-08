@@ -142,15 +142,53 @@ public class specific_vehicle_info extends AppCompatActivity {
     }
 
     public void setBikeFields(Bycicle vehicle) {
+        weight = new TextView(this);
+        linearLayout.addView(weight);
 
+        weightCapacity = new TextView(this);
+        linearLayout.addView(weightCapacity);
+
+
+        model.setText("Model: " + vehicle.getModel());
+        capacity.setText("Capacity: " + vehicle.getCapacity() + " out of which there are : " + vehicle.getOccupiedCapacity());
+        basePrice.setText("Base Price: " + vehicle.getBasePrice());
+        owner.setText("Owner: " + vehicle.getOwner());
+        vehicleType.setText("Vehicle Type: " + vehicle.getVehicleType());
+        weight.setText("Weight: " + vehicle.getWeight());
+        weightCapacity.setText("Weight Capacity: " + vehicle.getWeightCapacity());
     }
 
     public void setHeliCopterFields(HeliCopter vehicle) {
+        maxAirSpeed = new TextView(this);
+        linearLayout.addView(maxAirSpeed);
 
+        maxAltitude = new TextView(this);
+        linearLayout.addView(maxAltitude);
+
+
+        model.setText("Model: " + vehicle.getModel());
+        capacity.setText("Capacity: " + vehicle.getCapacity() + " out of which there are : " + vehicle.getOccupiedCapacity());
+        basePrice.setText("Base Price: " + vehicle.getBasePrice());
+        owner.setText("Owner: " + vehicle.getOwner());
+        vehicleType.setText("Vehicle Type: " + vehicle.getVehicleType());
+        maxAirSpeed.setText("Max Air Speed: " + vehicle.getMaxAirSpeed());
+        maxAltitude.setText("Max Altitude: " + vehicle.getMaxAltitude());
     }
 
     public void setSegwayFields(Segway vehicle) {
+        range = new TextView(this);
+        linearLayout.addView(range);
 
+        weightCapacity = new TextView(this);
+        linearLayout.addView(weightCapacity);
+
+        model.setText("Model: " + vehicle.getModel());
+        capacity.setText("Capacity: " + vehicle.getCapacity() + " out of which there are : " + vehicle.getOccupiedCapacity());
+        basePrice.setText("Base Price: " + vehicle.getBasePrice());
+        owner.setText("Owner: " + vehicle.getOwner());
+        vehicleType.setText("Vehicle Type: " + vehicle.getVehicleType());
+        weightCapacity.setText("Weight Capacity: " + vehicle.getWeightCapacity());
+        range.setText("Range: " + vehicle.getRange());
     }
 
 
