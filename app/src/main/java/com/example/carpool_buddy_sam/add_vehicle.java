@@ -40,6 +40,7 @@ public class add_vehicle extends AppCompatActivity {
     private EditText range;
     private EditText maxAltitude;
     private EditText maxAirSpeed;
+    private EditText owner;
 
 
     @Override
@@ -66,7 +67,8 @@ public class add_vehicle extends AppCompatActivity {
         String randId = "" + ((int) Math.random() * 1000);
 
         if(selectedRole.equals("Car")){
-            Car vehicleToAdd = new Car(mAuth.getCurrentUser().getUid(), model.getText().toString(),
+
+            Car vehicleToAdd = new Car(owner.getText().toString(), model.getText().toString(),
                     Integer.parseInt(capacity.getText().toString()),
             vehicleID, riders, true, "car",
                     Double.parseDouble(basePrice.getText().toString()),
@@ -77,7 +79,7 @@ public class add_vehicle extends AppCompatActivity {
         }
 
         if(selectedRole.equals("Bycicle")){
-            Bycicle vehicleToAdd = new Bycicle("Owner", model.getText().toString(),
+            Bycicle vehicleToAdd = new Bycicle(owner.getText().toString(), model.getText().toString(),
                     Integer.parseInt(capacity.getText().toString()),
                     vehicleID, riders, true, "bike",
                     Double.parseDouble(basePrice.getText().toString()),
@@ -88,7 +90,7 @@ public class add_vehicle extends AppCompatActivity {
         }
 
         if(selectedRole.equals("Helicopter")){
-            HeliCopter vehicleToAdd = new HeliCopter("Owner", model.getText().toString(),Integer.parseInt(capacity.getText().toString()),
+            HeliCopter vehicleToAdd = new HeliCopter(owner.getText().toString(), model.getText().toString(),Integer.parseInt(capacity.getText().toString()),
                     vehicleID, riders, true, "helicopter", Double.parseDouble(basePrice.getText().toString()),
                     Integer.parseInt(maxAltitude.getText().toString()), Integer.parseInt(maxAirSpeed.getText().toString()));
 
@@ -97,7 +99,7 @@ public class add_vehicle extends AppCompatActivity {
         }
 
         if(selectedRole.equals("Segway")){
-            Segway vehicleToAdd = new Segway("Owner", model.getText().toString(),Integer.parseInt(capacity.getText().toString()),
+            Segway vehicleToAdd = new Segway(owner.getText().toString(), model.getText().toString(),Integer.parseInt(capacity.getText().toString()),
                     vehicleID, riders, true, "segway", Double.parseDouble(basePrice.getText().toString()), Integer.parseInt(range.getText().toString()),
                     Integer.parseInt(weightCapacity.getText().toString()));
 
@@ -187,6 +189,10 @@ public class add_vehicle extends AppCompatActivity {
         basePrice = new EditText(this);
         basePrice.setHint("Base Price");
         layout.addView(basePrice);
+
+        owner = new EditText(this);
+        owner.setHint("Owner");
+        layout.addView(owner);
 
 
     }
