@@ -123,7 +123,7 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 //                            typeList.add(temp.getVehicleType());
 //                            capacityList.add(temp.getCapacity());
                         }
-                        if(type.equals("bycicle")){
+                        if(type.equals("bike")){
                             System.out.println("Added : " + document.toObject(Bycicle.class));
                             Vehicle temp = (Vehicle) (document.toObject(Bycicle.class));
 

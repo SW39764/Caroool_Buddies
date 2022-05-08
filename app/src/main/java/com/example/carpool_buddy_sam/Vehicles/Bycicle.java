@@ -19,6 +19,10 @@ public class Bycicle extends Vehicle{
         this.weightCapacity = weightCapacity;
     }
 
+    public Bycicle(){
+        super();
+    }
+
 
     public String getBycileType() {
         return bycileType;

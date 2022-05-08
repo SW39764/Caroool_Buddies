@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class specific_vehicle_info extends AppCompatActivity {
 
@@ -44,32 +45,68 @@ public class specific_vehicle_info extends AppCompatActivity {
 
         if(getIntent().hasExtra("id")){
             String id = extras.getString("id");
-            System.out.println(id);
-            DocumentReference doc = firestore.collection(com.example.carpool_buddy_sam.Constants.VEHICLE_COLLECTION).document("vehicle" + id);
+            DocumentReference doc = firestore.collection(com.example.carpool_buddy_sam.Constants.VEHICLE_COLLECTION).document(id);
 
 
-            doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    if(documentSnapshot.get("vehicleType").equals("car")){
+            Task<DocumentSnapshot> query = doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+                 @Override
+                 public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    System.out.println(documentSnapshot.get("vehicleType"));
+                     if(documentSnapshot.get("vehicleType").equals("car")){
                         Car vehicle = documentSnapshot.toObject(Car.class);
-
+                        infoField.setText(vehicle.toString());
                     }
                     else if(documentSnapshot.get("vehicleType").equals("bike")){
                         Bycicle vehicle = documentSnapshot.toObject(Bycicle.class);
+                         infoField.setText(vehicle.toString());
 
-                    }
-                    else if(documentSnapshot.get("vehicleType").equals("Helicopter")){
+                     }
+                    else if(documentSnapshot.get("vehicleType").equals("helicopter")){
                         HeliCopter vehicle = documentSnapshot.toObject(HeliCopter.class);
+                         infoField.setText(vehicle.toString());
 
                     }
-                    else if(documentSnapshot.get("vehicleType").equals("Segway")){
+                    else if(documentSnapshot.get("vehicleType").equals("segway")){
                         Segway vehicle = documentSnapshot.toObject(Segway.class);
+                         infoField.setText(vehicle.toString());
 
                     }
+                 }
 
-                }
-            });
+                 });
+
+
+
+
+//            doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                @Override
+//                public void onSuccess(DocumentSnapshot documentSnapshot) {
+////                    if(documentSnapshot.get("vehicleType").equals("car")){
+////                        Car vehicle = documentSnapshot.toObject(Car.class);
+////
+////                    }
+////                    else if(documentSnapshot.get("vehicleType").equals("bike")){
+////                        Bycicle vehicle = documentSnapshot.toObject(Bycicle.class);
+////
+////                    }
+////                    else if(documentSnapshot.get("vehicleType").equals("Helicopter")){
+////                        HeliCopter vehicle = documentSnapshot.toObject(HeliCopter.class);
+////
+////                    }
+////                    else if(documentSnapshot.get("vehicleType").equals("Segway")){
+////                        Segway vehicle = documentSnapshot.toObject(Segway.class);
+////
+////                    }
+//
+//                    System.out.println("Gotten : " + documentSnapshot.getData());
+//
+//                }
+//            });
+
+
+
+
 
         }
     }
