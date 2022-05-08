@@ -126,6 +126,8 @@ public class Vehicle implements Serializable, Parcelable {
         this.basePrice = basePrice;
     }
 
+
+
     @Override
     public String toString() {
         return "Vehicle{" +

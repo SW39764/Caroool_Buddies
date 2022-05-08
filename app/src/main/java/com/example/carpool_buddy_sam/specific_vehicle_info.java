@@ -2,7 +2,9 @@ package com.example.carpool_buddy_sam;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.carpool_buddy_sam.Vehicles.Bycicle;
 import com.example.carpool_buddy_sam.Vehicles.Car;
@@ -28,6 +31,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class specific_vehicle_info extends AppCompatActivity {
 
 //    TextView infoField;
@@ -36,6 +42,8 @@ public class specific_vehicle_info extends AppCompatActivity {
     private FirebaseFirestore firestore;
 
     private LinearLayout linearLayout;
+
+    Vehicle currentVehicle;
 
     private TextView model;
     private TextView capacity;
@@ -77,21 +85,25 @@ public class specific_vehicle_info extends AppCompatActivity {
                     System.out.println(documentSnapshot.get("vehicleType"));
                      if(documentSnapshot.get("vehicleType").equals("car")){
                         Car vehicle = documentSnapshot.toObject(Car.class);
-                        setCarFields(vehicle);
+                         currentVehicle = vehicle;
+                         setCarFields(vehicle);
                     }
                     else if(documentSnapshot.get("vehicleType").equals("bike")){
                         Bycicle vehicle = documentSnapshot.toObject(Bycicle.class);
+                        currentVehicle = vehicle;
                         setBikeFields(vehicle);
 
                      }
                     else if(documentSnapshot.get("vehicleType").equals("helicopter")){
                         HeliCopter vehicle = documentSnapshot.toObject(HeliCopter.class);
-                        setHeliCopterFields(vehicle);
+                         currentVehicle = vehicle;
+                         setHeliCopterFields(vehicle);
 
                     }
                     else if(documentSnapshot.get("vehicleType").equals("segway")){
                         Segway vehicle = documentSnapshot.toObject(Segway.class);
-                        setSegwayFields(vehicle);
+                         currentVehicle = vehicle;
+                         setSegwayFields(vehicle);
 
                     }
                  }
@@ -191,6 +203,29 @@ public class specific_vehicle_info extends AppCompatActivity {
         range.setText("Range: " + vehicle.getRange());
     }
 
+    public void bookedPress(View view) {
 
+        if(!getIntent().hasExtra("id")){
+            return;
+        }
+        Bundle extras = getIntent().getExtras();
+        String id = extras.getString("id");
+        DocumentReference doc = firestore.collection(com.example.carpool_buddy_sam.Constants.VEHICLE_COLLECTION).document(id);
+
+        if((currentVehicle.getCapacity() - Integer.parseInt(currentVehicle.getOccupiedCapacity())) == currentVehicle.getCapacity()){
+            Toast.makeText(this, "No more space available", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ArrayList<String> riderUIDs = currentVehicle.getRidersUIDs();
+        riderUIDs.add(mAuth.getUid());
+
+        currentVehicle.setRidersUIDs(riderUIDs);
+
+        doc.set(currentVehicle);
+
+        Intent intent = new Intent(this, vehiclesRecycler.class);
+        startActivity(intent);
+    }
 
 }
