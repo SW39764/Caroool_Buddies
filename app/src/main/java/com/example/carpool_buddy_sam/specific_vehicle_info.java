@@ -5,6 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.carpool_buddy_sam.Vehicles.Bycicle;
@@ -25,10 +30,23 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class specific_vehicle_info extends AppCompatActivity {
 
-    TextView infoField;
+//    TextView infoField;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
+
+    private LinearLayout linearLayout;
+
+    private TextView model;
+    private TextView capacity;
+    private TextView basePrice;
+    private TextView owner;
+    private TextView weight;
+    private TextView weightCapacity;
+    private TextView range;
+    private TextView maxAltitude;
+    private TextView maxAirSpeed;
+    private TextView vehicleType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +57,13 @@ public class specific_vehicle_info extends AppCompatActivity {
 
         setContentView(R.layout.activity_specific_vehicle_info);
 
-        infoField = findViewById(R.id.vehicleInfo);
+        linearLayout = findViewById(R.id.linearLayoutSpecificInfo);
+
+//        infoField = findViewById(R.id.vehicleInfo);
 
         Bundle extras = getIntent().getExtras();
+
+        commonFields();
 
         if(getIntent().hasExtra("id")){
             String id = extras.getString("id");
@@ -55,59 +77,82 @@ public class specific_vehicle_info extends AppCompatActivity {
                     System.out.println(documentSnapshot.get("vehicleType"));
                      if(documentSnapshot.get("vehicleType").equals("car")){
                         Car vehicle = documentSnapshot.toObject(Car.class);
-                        infoField.setText(vehicle.toString());
+                        setCarFields(vehicle);
                     }
                     else if(documentSnapshot.get("vehicleType").equals("bike")){
                         Bycicle vehicle = documentSnapshot.toObject(Bycicle.class);
-                         infoField.setText(vehicle.toString());
+                        setBikeFields(vehicle);
 
                      }
                     else if(documentSnapshot.get("vehicleType").equals("helicopter")){
                         HeliCopter vehicle = documentSnapshot.toObject(HeliCopter.class);
-                         infoField.setText(vehicle.toString());
+                        setHeliCopterFields(vehicle);
 
                     }
                     else if(documentSnapshot.get("vehicleType").equals("segway")){
                         Segway vehicle = documentSnapshot.toObject(Segway.class);
-                         infoField.setText(vehicle.toString());
+                        setSegwayFields(vehicle);
 
                     }
                  }
 
                  });
 
-
-
-
-//            doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                @Override
-//                public void onSuccess(DocumentSnapshot documentSnapshot) {
-////                    if(documentSnapshot.get("vehicleType").equals("car")){
-////                        Car vehicle = documentSnapshot.toObject(Car.class);
-////
-////                    }
-////                    else if(documentSnapshot.get("vehicleType").equals("bike")){
-////                        Bycicle vehicle = documentSnapshot.toObject(Bycicle.class);
-////
-////                    }
-////                    else if(documentSnapshot.get("vehicleType").equals("Helicopter")){
-////                        HeliCopter vehicle = documentSnapshot.toObject(HeliCopter.class);
-////
-////                    }
-////                    else if(documentSnapshot.get("vehicleType").equals("Segway")){
-////                        Segway vehicle = documentSnapshot.toObject(Segway.class);
-////
-////                    }
-//
-//                    System.out.println("Gotten : " + documentSnapshot.getData());
-//
-//                }
-//            });
-
-
-
-
-
         }
+
+
     }
+
+    public void commonFields() {
+        linearLayout.removeAllViewsInLayout();
+
+        model = new TextView(this);
+        linearLayout.addView(model);
+
+        capacity = new TextView(this);
+        linearLayout.addView(capacity);
+
+        basePrice = new TextView(this);
+        linearLayout.addView(basePrice);
+
+        owner = new TextView(this);
+        linearLayout.addView(owner);
+
+        vehicleType = new TextView(this);
+        linearLayout.addView(vehicleType);
+
+    }
+
+    public void setCarFields(Car vehicle) {
+        range = new TextView(this);
+        linearLayout.addView(range);
+
+
+
+
+        model.setText("Model: " + vehicle.getModel());
+        capacity.setText("Capacity: " + vehicle.getCapacity() + " out of which there are : " + vehicle.getOccupiedCapacity());
+        basePrice.setText("Base Price: " + vehicle.getBasePrice());
+        owner.setText("Owner: " + vehicle.getOwner());
+        vehicleType.setText("Vehicle Type: " + vehicle.getVehicleType());
+        range.setText("Range: " + vehicle.getRange());
+
+
+
+    }
+
+    public void setBikeFields(Bycicle vehicle) {
+
+    }
+
+    public void setHeliCopterFields(HeliCopter vehicle) {
+
+    }
+
+    public void setSegwayFields(Segway vehicle) {
+
+    }
+
+
+
 }

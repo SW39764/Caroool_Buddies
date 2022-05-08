@@ -145,6 +145,10 @@ public class Vehicle implements Serializable, Parcelable {
         return 0;
     }
 
+    public String getOccupiedCapacity() {
+        return Integer.toString(capacity - ridersUIDs.size());
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(owner);

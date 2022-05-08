@@ -86,6 +86,7 @@ public class add_vehicle extends AppCompatActivity {
 
             newVehicleRef.set(vehicleToAdd);
         }
+
         if(selectedRole.equals("Helicopter")){
             HeliCopter vehicleToAdd = new HeliCopter("Owner", model.getText().toString(),Integer.parseInt(capacity.getText().toString()),
                     vehicleID, riders, true, "helicopter", Double.parseDouble(basePrice.getText().toString()),
@@ -102,11 +103,6 @@ public class add_vehicle extends AppCompatActivity {
 
             newVehicleRef.set(vehicleToAdd);
         }
-
-
-
-
-
 
     }
 
