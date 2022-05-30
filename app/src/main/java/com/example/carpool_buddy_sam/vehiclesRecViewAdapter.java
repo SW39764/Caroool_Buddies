@@ -1,11 +1,14 @@
 package com.example.carpool_buddy_sam;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,9 +21,11 @@ public class vehiclesRecViewAdapter extends RecyclerView.Adapter<vehicleRecycler
 //    ArrayList<Vehicle> vehicles;
 //    ArrayList<String> type;
 //    ArrayList<String> model;
-    ArrayList<Integer> capacity;
+//    ArrayList<Integer> capacity;
 
     ArrayList<Vehicle> vehicles;
+
+    ImageView icon;
 
     private OnNoteListener mOnNoteListener;
 
@@ -50,12 +55,31 @@ public class vehiclesRecViewAdapter extends RecyclerView.Adapter<vehicleRecycler
         String capacity = "" + vehicles.get(position).getCapacity();
         String basePrice = "" + vehicles.get(position).getBasePrice();
 
+        if(type.equals("car")){
+            holder.icon.setImageResource(R.drawable.car);
+            holder.icon.setScaleX(0.5f);
+            holder.icon.setScaleY(0.5f);
+        }
+        else if(type.equals("bike")){
+            holder.icon.setImageResource(R.drawable.bike);
+            holder.icon.setScaleX(0.5f);
+            holder.icon.setScaleY(0.5f);
+        }
+        else if(type.equals("segway")){
+            holder.icon.setImageResource(R.drawable.segway);
+            holder.icon.setScaleX(0.5f);
+            holder.icon.setScaleY(0.5f);
+        }
+        else if(type.equals("helicopter")){
+            holder.icon.setImageResource(R.drawable.helicopter);
+            holder.icon.setScaleX(0.5f);
+            holder.icon.setScaleY(0.5f);
+        }
 
         holder.vehicleModel.setText("Model : " + model);
         holder.vehicleType.setText("Type : " + type);
         holder.vehicleCapacity.setText("Capacity : " + capacity);
         holder.vehicleBasePrice.setText("Base Price : " + basePrice);
-
     }
 
     @Override

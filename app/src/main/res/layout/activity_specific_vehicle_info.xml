@@ -22,7 +22,7 @@
         android:id="@+id/linearLayoutSpecificInfo"
         android:layout_width="409dp"
         android:layout_height="345dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="148dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

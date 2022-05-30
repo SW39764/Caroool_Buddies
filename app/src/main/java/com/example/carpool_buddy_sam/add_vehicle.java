@@ -104,6 +104,7 @@ public class add_vehicle extends AppCompatActivity {
                     Integer.parseInt(weightCapacity.getText().toString()));
 
             newVehicleRef.set(vehicleToAdd);
+
         }
 
     }

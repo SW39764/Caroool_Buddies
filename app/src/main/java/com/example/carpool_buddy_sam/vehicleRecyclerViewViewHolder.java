@@ -1,6 +1,7 @@
 package com.example.carpool_buddy_sam;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,8 @@ public class vehicleRecyclerViewViewHolder extends RecyclerView.ViewHolder imple
     protected TextView vehicleType;
     protected TextView vehicleCapacity;
     protected TextView vehicleBasePrice;
+
+    protected ImageView icon;
 
 
 
@@ -27,6 +30,7 @@ public class vehicleRecyclerViewViewHolder extends RecyclerView.ViewHolder imple
         vehicleModel = itemView.findViewById(R.id.vehicleModel);
         vehicleCapacity = itemView.findViewById(R.id.vehicleCapacity);
         vehicleBasePrice = itemView.findViewById(R.id.vehicleBasePrice);
+        icon = itemView.findViewById(R.id.iconView);
 
     }
 

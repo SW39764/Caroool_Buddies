@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,8 @@ public class specific_vehicle_info extends AppCompatActivity {
     private TextView maxAirSpeed;
     private TextView vehicleType;
 
+    private ImageView iconImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +68,30 @@ public class specific_vehicle_info extends AppCompatActivity {
 
         setContentView(R.layout.activity_specific_vehicle_info);
 
+
+
+
+
         linearLayout = findViewById(R.id.linearLayoutSpecificInfo);
 
-//        infoField = findViewById(R.id.vehicleInfo);
+//        ImageView myImageView;
+//        myImageView = mDialog.findViewById(R.id.image_id);
+//        String src = "imageFileName"
+//
+//        int drawableId = this.getResources().getIdentifier(src, "drawable", context.getPackageName())
+//        popupImageView.setImageResource(drawableId);
+
+
+
+//        iconImageHolder = new ImageView(this);
+//        linearLayout.addView(iconImageHolder);
+
+//        infoField = findViewById(R.id.vehicleInfo);0
+
+
+
+
+
 
         Bundle extras = getIntent().getExtras();
 
@@ -113,6 +137,7 @@ public class specific_vehicle_info extends AppCompatActivity {
         }
 
 
+
     }
 
     public void commonFields() {
@@ -149,6 +174,12 @@ public class specific_vehicle_info extends AppCompatActivity {
         vehicleType.setText("Vehicle Type: " + vehicle.getVehicleType());
         range.setText("Range: " + vehicle.getRange());
 
+        iconImageView = new ImageView(this);
+        iconImageView.setImageResource(R.drawable.car);
+        iconImageView.setScaleX(0.5f);
+        iconImageView.setScaleY(0.5f);
+        linearLayout.addView(iconImageView);
+
 
 
     }
@@ -168,6 +199,12 @@ public class specific_vehicle_info extends AppCompatActivity {
         vehicleType.setText("Vehicle Type: " + vehicle.getVehicleType());
         weight.setText("Weight: " + vehicle.getWeight());
         weightCapacity.setText("Weight Capacity: " + vehicle.getWeightCapacity());
+
+        iconImageView = new ImageView(this);
+        iconImageView.setImageResource(R.drawable.bike);
+        iconImageView.setScaleX(0.5f);
+        iconImageView.setScaleY(0.5f);
+        linearLayout.addView(iconImageView);
     }
 
     public void setHeliCopterFields(HeliCopter vehicle) {
@@ -185,6 +222,12 @@ public class specific_vehicle_info extends AppCompatActivity {
         vehicleType.setText("Vehicle Type: " + vehicle.getVehicleType());
         maxAirSpeed.setText("Max Air Speed: " + vehicle.getMaxAirSpeed());
         maxAltitude.setText("Max Altitude: " + vehicle.getMaxAltitude());
+
+        iconImageView = new ImageView(this);
+        iconImageView.setImageResource(R.drawable.helicopter);
+        iconImageView.setScaleX(0.5f);
+        iconImageView.setScaleY(0.5f);
+        linearLayout.addView(iconImageView);
     }
 
     public void setSegwayFields(Segway vehicle) {
@@ -201,6 +244,12 @@ public class specific_vehicle_info extends AppCompatActivity {
         vehicleType.setText("Vehicle Type: " + vehicle.getVehicleType());
         weightCapacity.setText("Weight Capacity: " + vehicle.getWeightCapacity());
         range.setText("Range: " + vehicle.getRange());
+
+        iconImageView = new ImageView(this);
+        iconImageView.setImageResource(R.drawable.segway);
+        iconImageView.setScaleX(0.5f);
+        iconImageView.setScaleY(0.5f);
+        linearLayout.addView(iconImageView);
     }
 
     public void bookedPress(View view) {
