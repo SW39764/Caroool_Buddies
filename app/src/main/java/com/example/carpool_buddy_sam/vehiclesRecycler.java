@@ -9,6 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.carpool_buddy_sam.Vehicles.Bycicle;
 import com.example.carpool_buddy_sam.Vehicles.Car;
@@ -27,18 +32,15 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecViewAdapter.OnNoteListener {
+public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecViewAdapter.OnNoteListener, AdapterView.OnItemSelectedListener {
 
-    RecyclerView recView;
+    private RecyclerView recView;
+    private Spinner spinner;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
 
     private ArrayList<Vehicle> vehiclesList;
-
-//    private ArrayList<String> ownerList;
-//    private ArrayList<String> typeList;
-//    private ArrayList<Integer> capacityList;
 
     static public ArrayList<Vehicle> finishedList;
 
@@ -47,16 +49,13 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicles_recycler);
 
         vehiclesList = new ArrayList<Vehicle>();
-//        ownerList = new ArrayList<String>();
-//        typeList = new ArrayList<String>();
-//        capacityList = new ArrayList<Integer>();
 
         finishedList = new ArrayList<Vehicle>();
 
@@ -66,13 +65,30 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
         recView = findViewById(R.id.recView);
 
 
+        spinner = findViewById(R.id.spinner);
+        ArrayList<String> spinnerList = new ArrayList<String>();
+        spinnerList.add("No Filter");
+        spinnerList.add("Bike");
+        spinnerList.add("Car");
+        spinnerList.add("Segway");
+        spinnerList.add("Helicopter");
+
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+        spinner.setOnItemSelectedListener(this);
+
+
+
+
         getVehicles();
 
     }
 
-    public void CreateAdapter(){
+    public void CreateAdapter(ArrayList<Vehicle> vehiclesList) {
 
-        vehiclesRecViewAdapter myAdapter = new vehiclesRecViewAdapter(finishedList, this);
+        vehiclesRecViewAdapter myAdapter = new vehiclesRecViewAdapter(vehiclesList, this);
 
         recView.setAdapter(myAdapter);
         recView.setLayoutManager(new LinearLayoutManager(this));
@@ -151,15 +167,60 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
             @Override
             public void onComplete(@NonNull Task<String> task) {
 
-                CreateAdapter();
-//                System.out.println("VEHICLES ALL INFO: " + finishedList.toString());
+                CreateAdapter(finishedList);
             }
         });
 
-//        System.out.println("RETURNING VEHICLES LIST RETURNING VEHICLES LIST RETURNING VEHICLES LIST RETURNING VEHICLES LIST RETURNING VEHICLES LIST RETURNING VEHICLES LIST");
 
     }
 
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String selected = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+        System.out.println("Selected: " + selected);
+
+        if(selected.equals("No Filter")){
+            recreate("No Filter");
+        }
+        else if(selected.equals("Car")){
+            recreate("car");
+        }
+        else if(selected.equals("Helicopter")){
+            recreate("helicopter");
+        }
+        else if(selected.equals("Bike")){
+            recreate("bike");
+        }
+        else if(selected.equals("Segway")){
+            recreate("segway");
+        }
+    }
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+    }
+
+
+
+    public void recreate(String type){
+        if(type.equals("No Filter")){
+            CreateAdapter(finishedList);
+        }
+
+        else{
+            ArrayList<Vehicle> temp = new ArrayList<>();
+
+            type = type.toLowerCase();
+            for(Vehicle v : finishedList){
+                if(v.getVehicleType().equals(type)){
+                    temp.add(v);
+                }
+            }
+            CreateAdapter(temp);
+        }
+
+
+
+
+    }
 
     @Override
     public void onNoteClick(int position) {
