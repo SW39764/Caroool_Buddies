@@ -2,8 +2,10 @@ package com.example.carpool_buddy_sam.Users;
 
 import java.util.ArrayList;
 
+//User class - parent class to Alumni, Parent, Student, and Teacher
 public class User {
 
+    //Instance variables
     private String uid;
     private String name;
     private String email;
@@ -11,10 +13,12 @@ public class User {
     private double priceMultiplier;
     private ArrayList<String> ownedVehicles;
 
+    //no arguement constructor
     public User(){
 
     }
 
+    //constructor
     public User(String uid, String name, String email, String userType, double priceMultiplier, ArrayList<String> ownedVehicles) {
         this.uid = uid;
         this.name = name;
@@ -24,6 +28,7 @@ public class User {
         this.ownedVehicles = ownedVehicles;
     }
 
+    //getters and setters
     public String getUid() {
         return uid;
     }
@@ -72,6 +77,7 @@ public class User {
         this.ownedVehicles = ownedVehicles;
     }
 
+    //toString
     @Override
     public String toString() {
         return "User{" +

@@ -4,20 +4,25 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
+//Car child class of Vehicle
 public class Car extends Vehicle {
 
+    //instance variables
     private int range;
 
+    //No argument constructor
     public Car(){
 
     }
 
+    //Constructor
     public Car(String owner, String model, int capacity, String vehicleID, ArrayList<String> ridersUIDs, boolean open, String vehicleType, double basePrice, int range) {
         super(owner, model, capacity, vehicleID, ridersUIDs, open, vehicleType, basePrice);
 
         this.range = range;
     }
 
+    //Getters and setters
     public int getRange() {
         return range;
     }
@@ -26,6 +31,7 @@ public class Car extends Vehicle {
         this.range = range;
     }
 
+    //toString
     @Override
     public String toString() {
         return "Car{" +

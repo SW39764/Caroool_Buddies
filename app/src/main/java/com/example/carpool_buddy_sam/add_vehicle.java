@@ -24,14 +24,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+//allows user to create new vehicle
 public class add_vehicle extends AppCompatActivity {
 
+    //instance variables
     private EditText vehicleName;
     private Spinner userRoleSpinner;
     private LinearLayout layout;
     private String selectedRole;
 
-//    private EditText owner;
     private EditText model;
     private EditText capacity;
     private EditText basePrice;
@@ -48,32 +49,35 @@ public class add_vehicle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_vehicle);
 
+        //create connection to firebase
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         layout = findViewById(R.id.linearLayoutAddVehicle);
         userRoleSpinner = findViewById(R.id.spinnerAddVehicle);
+
+        //calls method to setup spinner
         setupSpinner();
-
-
-//        vehicleName = findViewById(R.id.editTextName);
     }
 
+    //creates vehicle based on user input and adds it to firebase
     public void addVehicle(View v){
+        //create new document to store new vehicle
         DocumentReference newVehicleRef = firestore.collection(Constants.VEHICLE_COLLECTION).document();
+        //get id of new vehicle
         String vehicleID = newVehicleRef.getId();
 
-
+        //Create new empty arraylist used as rider list in vehicle constructors
         ArrayList<String> riders = new ArrayList<>();
-        String randId = "" + ((int) Math.random() * 1000);
 
+        //depending on what spinner optiion is selected, create new vehicle of that type
         if(selectedRole.equals("Car")){
-
+            //create new car from user input
             Car vehicleToAdd = new Car(owner.getText().toString(), model.getText().toString(),
                     Integer.parseInt(capacity.getText().toString()),
             vehicleID, riders, true, "car",
                     Double.parseDouble(basePrice.getText().toString()),
                     Integer.parseInt(range.getText().toString()));
-
+            //add vehicle to firebase
             newVehicleRef.set(vehicleToAdd);
 
         }
@@ -110,7 +114,7 @@ public class add_vehicle extends AppCompatActivity {
     }
 
 
-
+    //add all of the options to the spinner
     private void setupSpinner() {
         String[] userTypes = {"Bycicle", "Car", "Helicopter", "Segway"};
         // add user types to spinner
@@ -126,6 +130,7 @@ public class add_vehicle extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
                 selectedRole = parent.getItemAtPosition(position).toString();
+                //adds fields that each vehicle needs depending on what the user selects
                 addFields();
             }
 
@@ -136,7 +141,9 @@ public class add_vehicle extends AppCompatActivity {
     }
 
     public void addFields() {
+        //adds fields that are common for all vehicles (instance variables of Vehicle class)
         commonFields();
+        //depending on what vehicle was selected, add the fields that are specific to that vehicle
         if(selectedRole.equals("Bycicle")){
             weight = new EditText(this);
             weight.setHint("Weight");
@@ -173,11 +180,9 @@ public class add_vehicle extends AppCompatActivity {
 
     }
 
+    //adds the common fields from the Vehicle class to the layout
     public void commonFields() {
         layout.removeAllViewsInLayout();
-//        owner = new EditText(this);
-//        owner.setHint("Owner");
-//        layout.addView(owner);
 
         model = new EditText(this);
         model.setHint("Model");

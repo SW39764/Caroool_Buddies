@@ -2,15 +2,19 @@ package com.example.carpool_buddy_sam.Vehicles;
 
 import java.util.ArrayList;
 
+//Segway child class of Vehicle
 public class Segway extends Vehicle{
 
+    //Instance variables
     private int range;
     private int weightCapacity;
 
-    public Segway(){
 
+    //No argument constructor
+    public Segway(){
     }
 
+    //Constructor
     public Segway(String owner, String model, int capacity, String vehicleID,
                   ArrayList<String> ridersUIDs, boolean open, String vehicleType,
                   double basePrice, int range, int weightCapacity) {
@@ -19,6 +23,7 @@ public class Segway extends Vehicle{
         this.weightCapacity = weightCapacity;
     }
 
+    //Getters and setters
     public int getRange() {
         return range;
     }
@@ -35,6 +40,7 @@ public class Segway extends Vehicle{
         this.weightCapacity = weightCapacity;
     }
 
+    //toString
     @Override
     public String toString() {
         return "Segway{" +

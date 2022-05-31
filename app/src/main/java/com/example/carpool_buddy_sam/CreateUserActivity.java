@@ -32,7 +32,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+//Activity that creates new account for user and stores it in the database
 public class CreateUserActivity extends AppCompatActivity {
+    //instance variables
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
     private LinearLayout layout;
@@ -42,6 +44,7 @@ public class CreateUserActivity extends AppCompatActivity {
     private EditText gradYearField;
     private EditText parentUIDField;
     private EditText inSchoolTitleField;
+    private EditText childrenTextField;
 
     private Spinner userRoleSpinner;
     private String selectedRole;
@@ -51,16 +54,16 @@ public class CreateUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
+
+        //establish connection to firebase
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         layout = findViewById(R.id.linearLayoutCreateUser);
         userRoleSpinner = findViewById(R.id.selectTypeSpinner);
+
+        //creates spinner for user types
         setupSpinner();
 
-    }
-
-    public int randInt(){
-        return (int) (Math.random() * 100000);
     }
 
     // setup spinner where user selects what user type they want to make an account for
@@ -89,7 +92,10 @@ public class CreateUserActivity extends AppCompatActivity {
     }
 
     public void addFields() {
+        //adds common fields that all user types inherit from parent class User
         commonFields();
+
+        //adds fields depending on what user type is selected in spinner
         if(selectedRole.equals("Alumni")) {
             gradYearField = new EditText(this);
             gradYearField.setHint("Graduation year");
@@ -106,7 +112,13 @@ public class CreateUserActivity extends AppCompatActivity {
             layout.addView(parentUIDField);
 
         }
+        if(selectedRole.equals("Parent")) {
+            childrenTextField = new EditText(this);
 
+            childrenTextField.setHint("Children");
+
+            layout.addView(inSchoolTitleField);
+        }
         if(selectedRole.equals("Teacher")) {
             inSchoolTitleField = new EditText(this);
             inSchoolTitleField.setHint("In-school title");
@@ -115,6 +127,7 @@ public class CreateUserActivity extends AppCompatActivity {
     }
 
     public void commonFields() {
+        //add common fields from User parent class
         layout.removeAllViewsInLayout();
         nameField = new EditText(this);
         nameField.setHint("Name");
@@ -127,13 +140,14 @@ public class CreateUserActivity extends AppCompatActivity {
         layout.addView(passwordField);
     }
 
-
+    //creates user account and sends to database
     public void signUp(View v) {
-        String id = "" + randInt();
-
+        //gets user input
         String nameString = nameField.getText().toString();
         String emailString = emailField.getText().toString();
         String passwordString = passwordField.getText().toString();
+
+        //creates a login account
         mAuth.createUserWithEmailAndPassword(emailString, passwordString)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -151,11 +165,11 @@ public class CreateUserActivity extends AppCompatActivity {
                     }
                 });
 
-
+        //creates document in database and gets id
         DocumentReference newUserRef = firestore.collection(Constants.USER_COLLECTION).document();
         String userID = newUserRef.getId();
 
-
+        //creates user depending on what user type is selected
         if(selectedRole.equals("Alumni")) {
             int gradYearInt = Integer.parseInt(gradYearField.getText().toString());
             Alumni newUser = new Alumni(userID, nameString, emailString, gradYearInt);
@@ -178,11 +192,12 @@ public class CreateUserActivity extends AppCompatActivity {
             newUserRef.set(newUser);
         }
 
-
+        //sends new account to database and sends user to UserProfile activity
         FirebaseUser user = mAuth.getCurrentUser();
         updateUI(user);
     }
 
+    //if signup was successful, sends user to UserProfile activity
     public void updateUI(FirebaseUser currentUser) {
         if (currentUser != null) {
             Intent intent = new Intent(this, UserProfile.class);

@@ -6,8 +6,11 @@ import android.os.Parcelable;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+//Vehicle class - parent class to : Bycicle, Car, Segway, and HeliCopter classes
+//implements Parcelable, Serializable to be able to send between activities and firebase accordingly
 public class Vehicle implements Serializable, Parcelable {
 
+    //instance variables
     private  String owner;
     private String model;
     private int capacity;
@@ -17,17 +20,11 @@ public class Vehicle implements Serializable, Parcelable {
     private String vehicleType;
     private double basePrice;
 
+    //No argument constructor
     public Vehicle(){
-//        this.owner = "";
-//        this.model = "";
-//        this.capacity = 0;
-//        this.vehicleID = ;
-//        this.ridersUIDs = ;
-//        this.open = ;
-//        this.vehicleType = ;
-//        this.basePrice = ;
     }
 
+    //Constructor
     public Vehicle(String owner, String model, int capacity, String vehicleID, ArrayList<String> ridersUIDs, boolean open, String vehicleType, double basePrice) {
         this.owner = owner;
         this.model = model;
@@ -39,6 +36,7 @@ public class Vehicle implements Serializable, Parcelable {
         this.basePrice = basePrice;
     }
 
+    //Parcel constructor
     protected Vehicle(Parcel in) {
         owner = in.readString();
         model = in.readString();
@@ -50,6 +48,7 @@ public class Vehicle implements Serializable, Parcelable {
         basePrice = in.readDouble();
     }
 
+    //Parcelable methods
     public static final Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
         @Override
         public Vehicle createFromParcel(Parcel in) {
@@ -62,6 +61,7 @@ public class Vehicle implements Serializable, Parcelable {
         }
     };
 
+    //Getters and setters
     public String getOwner() {
         return owner;
     }
@@ -127,7 +127,7 @@ public class Vehicle implements Serializable, Parcelable {
     }
 
 
-
+    //toString
     @Override
     public String toString() {
         return "Vehicle{" +
@@ -142,15 +142,18 @@ public class Vehicle implements Serializable, Parcelable {
                 '}';
     }
 
+    //Parcelable methods
     @Override
     public int describeContents() {
         return 0;
     }
 
+    //return occupancy
     public String getOccupiedCapacity() {
         return Integer.toString(capacity - ridersUIDs.size());
     }
 
+    //Create Parcel to be able to send between activities
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(owner);

@@ -14,6 +14,7 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
     }
 
+    //go to vehicleinfo activity
     public void goToVehicle(View v){
         Intent intent = new Intent(this, VehicleInfo.class);
         startActivity(intent);

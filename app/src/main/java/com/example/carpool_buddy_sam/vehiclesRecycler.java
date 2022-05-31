@@ -32,8 +32,10 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+//recyclerview that displays all vehicles available to the user
 public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecViewAdapter.OnNoteListener, AdapterView.OnItemSelectedListener {
 
+    //instance variables
     private RecyclerView recView;
     private Spinner spinner;
 
@@ -44,14 +46,8 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 
     static public ArrayList<Vehicle> finishedList;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicles_recycler);
 
@@ -64,7 +60,7 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 
         recView = findViewById(R.id.recView);
 
-
+        //sets up spinner
         spinner = findViewById(R.id.spinner);
         ArrayList<String> spinnerList = new ArrayList<String>();
         spinnerList.add("No Filter");
@@ -73,15 +69,12 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
         spinnerList.add("Segway");
         spinnerList.add("Helicopter");
 
-
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
         spinner.setOnItemSelectedListener(this);
 
-
-
-
+        //gets vehicles from database, and subsequently adds them to the recycler view
         getVehicles();
 
     }
@@ -95,7 +88,6 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
     }
 
     public void getVehicles(){
-//        vehiclesList.clear();
         TaskCompletionSource<String> getAllRidesTask = new TaskCompletionSource<>();
         firestore.collection(com.example.carpool_buddy_sam.Constants.VEHICLE_COLLECTION).whereEqualTo("open", true)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -166,7 +158,7 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
         getAllRidesTask.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
-
+                //once everything is received, create the adapter
                 CreateAdapter(finishedList);
             }
         });
@@ -174,6 +166,7 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 
     }
 
+    //depending on what option is selected in spinner, apply various filters to the list of available vehicles
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selected = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
         System.out.println("Selected: " + selected);
@@ -199,7 +192,7 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
     }
 
 
-
+    //create the adapter for the RecyclerView again with new filtered list
     public void recreate(String type){
         if(type.equals("No Filter")){
             CreateAdapter(finishedList);
@@ -222,6 +215,7 @@ public class vehiclesRecycler extends AppCompatActivity implements vehiclesRecVi
 
     }
 
+    //go to vehicle info activity when a vehicle is clicked and bundle id info with it
     @Override
     public void onNoteClick(int position) {
         System.out.println("CLICKED: " + position);

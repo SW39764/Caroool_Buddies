@@ -2,15 +2,19 @@ package com.example.carpool_buddy_sam.Vehicles;
 
 import java.util.ArrayList;
 
+//Helicopter child class of Vehicle
 public class HeliCopter extends Vehicle{
 
+    //Instance variables
     private int maxAltitude;
     private int maxAirSpeed;
 
+    //No argument constructor
     public HeliCopter(){
         super();
     }
 
+    //Constructor
     public HeliCopter(String owner,
                       String model, int capacity,
                       String vehicleID, ArrayList<String> ridersUIDs,
@@ -22,6 +26,7 @@ public class HeliCopter extends Vehicle{
         this.maxAirSpeed = maxAirSpeed;
     }
 
+    //Getters and setters
     public int getMaxAltitude() {
         return maxAltitude;
     }
@@ -38,6 +43,7 @@ public class HeliCopter extends Vehicle{
         this.maxAirSpeed = maxAirSpeed;
     }
 
+    //toString
     @Override
     public String toString() {
         return "HeliCopter{" +

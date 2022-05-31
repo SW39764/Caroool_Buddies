@@ -2,12 +2,15 @@ package com.example.carpool_buddy_sam.Vehicles;
 
 import java.util.ArrayList;
 
+//Bycicle child class of Vehicle
 public class Bycicle extends Vehicle{
 
+    //Instance variables
     private String bycileType;
     private int weight;
     private int weightCapacity;
 
+    //Constructor
     public Bycicle(String owner, String model, int capacity,
                    String vehicleID, ArrayList<String> ridersUIDs,
                    boolean open, String vehicleType, double basePrice,
@@ -19,11 +22,12 @@ public class Bycicle extends Vehicle{
         this.weightCapacity = weightCapacity;
     }
 
+    //No argument constructor
     public Bycicle(){
         super();
     }
 
-
+    //Getters and setters
     public String getBycileType() {
         return bycileType;
     }
@@ -48,6 +52,7 @@ public class Bycicle extends Vehicle{
         this.weightCapacity = weightCapacity;
     }
 
+    //toString
     @Override
     public String toString() {
         return "Bycicle{" +

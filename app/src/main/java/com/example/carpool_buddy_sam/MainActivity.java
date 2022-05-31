@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    //sends user to next activity
     public void goToUsers(View v){
         Intent intent = new Intent(this, UserProfile.class);
         startActivity(intent);

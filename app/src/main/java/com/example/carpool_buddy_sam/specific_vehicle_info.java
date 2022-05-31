@@ -35,10 +35,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+//shows info about specific vehicle selected in recyclerview
 public class specific_vehicle_info extends AppCompatActivity {
 
-//    TextView infoField;
-
+    //instance variables
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
 
@@ -63,50 +63,37 @@ public class specific_vehicle_info extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //creates firebase instance
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
+
         setContentView(R.layout.activity_specific_vehicle_info);
-
-
-
-
 
         linearLayout = findViewById(R.id.linearLayoutSpecificInfo);
 
-//        ImageView myImageView;
-//        myImageView = mDialog.findViewById(R.id.image_id);
-//        String src = "imageFileName"
-//
-//        int drawableId = this.getResources().getIdentifier(src, "drawable", context.getPackageName())
-//        popupImageView.setImageResource(drawableId);
-
-
-
-//        iconImageHolder = new ImageView(this);
-//        linearLayout.addView(iconImageHolder);
-
-//        infoField = findViewById(R.id.vehicleInfo);0
-
-
-
-
-
-
+        //gets extras that were bundled in recyclerview about what vehicle was selected
         Bundle extras = getIntent().getExtras();
 
+        //adds fields that all vehicles have
         commonFields();
 
+        //if correct data was passed in
         if(getIntent().hasExtra("id")){
+            //get the id of the vehicle and load it into the doc variable for easy access
             String id = extras.getString("id");
             DocumentReference doc = firestore.collection(com.example.carpool_buddy_sam.Constants.VEHICLE_COLLECTION).document(id);
 
-
+            //gets the vehicle from the database
             Task<DocumentSnapshot> query = doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
 
+                //waits until data was received as otherwise it will try to use the data before it is received
                  @Override
                  public void onSuccess(DocumentSnapshot documentSnapshot) {
                     System.out.println(documentSnapshot.get("vehicleType"));
+
+                    //depending on what type of vehicle it is, it will create a new vehicle object and set the fields
+
                      if(documentSnapshot.get("vehicleType").equals("car")){
                         Car vehicle = documentSnapshot.toObject(Car.class);
                          currentVehicle = vehicle;
@@ -140,6 +127,7 @@ public class specific_vehicle_info extends AppCompatActivity {
 
     }
 
+    //sets the fields that all vehicles have from parent class Vehicle
     public void commonFields() {
         linearLayout.removeAllViewsInLayout();
 
@@ -160,6 +148,7 @@ public class specific_vehicle_info extends AppCompatActivity {
 
     }
 
+    //sets the fields for a car
     public void setCarFields(Car vehicle) {
         range = new TextView(this);
         linearLayout.addView(range);
@@ -184,6 +173,7 @@ public class specific_vehicle_info extends AppCompatActivity {
 
     }
 
+    //sets the fields for a bike
     public void setBikeFields(Bycicle vehicle) {
         weight = new TextView(this);
         linearLayout.addView(weight);
@@ -207,6 +197,7 @@ public class specific_vehicle_info extends AppCompatActivity {
         linearLayout.addView(iconImageView);
     }
 
+    //sets the fields for a helicopter
     public void setHeliCopterFields(HeliCopter vehicle) {
         maxAirSpeed = new TextView(this);
         linearLayout.addView(maxAirSpeed);
@@ -230,6 +221,7 @@ public class specific_vehicle_info extends AppCompatActivity {
         linearLayout.addView(iconImageView);
     }
 
+    //sets the fields for a plane
     public void setSegwayFields(Segway vehicle) {
         range = new TextView(this);
         linearLayout.addView(range);
@@ -252,6 +244,7 @@ public class specific_vehicle_info extends AppCompatActivity {
         linearLayout.addView(iconImageView);
     }
 
+    //when book button is clicked it will book one spot in the vehicle
     public void bookedPress(View view) {
 
         if(!getIntent().hasExtra("id")){
@@ -266,6 +259,7 @@ public class specific_vehicle_info extends AppCompatActivity {
             return;
         }
 
+        //adds rider to the vehicle and sets it back to the database
         ArrayList<String> riderUIDs = currentVehicle.getRidersUIDs();
         riderUIDs.add(mAuth.getUid());
 
@@ -273,6 +267,7 @@ public class specific_vehicle_info extends AppCompatActivity {
 
         doc.set(currentVehicle);
 
+        //go back to recycler view
         Intent intent = new Intent(this, vehiclesRecycler.class);
         startActivity(intent);
     }
