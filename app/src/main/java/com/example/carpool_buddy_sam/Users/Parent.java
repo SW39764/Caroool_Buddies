@@ -2,6 +2,10 @@ package com.example.carpool_buddy_sam.Users;
 
 import java.util.ArrayList;
 
+/**
+ * Child class of User.
+ * Used to manage one type of users and store all relevant information.
+ */
 //Parent child class of User
 public class Parent extends User{
     private ArrayList<String> childrenUIDs;
@@ -21,16 +25,28 @@ public class Parent extends User{
         this.childrenUIDs = childrenUIDs;
     }
 
+    /**
+     * getter for childrenUIDs
+     * @return arraylist of childrenUIDs (Strings)
+     */
     //Getters
     public ArrayList<String> getChildrenUIDs() {
         return childrenUIDs;
     }
 
+    /**
+     * setter for childrenUIDs
+     * @param childrenUIDs arraylist of childrenUIDs (Strings)
+     */
     //Setters
     public void setChildrenUIDs(ArrayList<String> childrenUIDs) {
         this.childrenUIDs = childrenUIDs;
     }
 
+    /**
+     * toString method for Parent
+     * @return String of : uid, name, email, userType, priceMultiplier, ownedVehicles, childrenUIDs
+     */
     //To String
     @Override
     public String toString() {

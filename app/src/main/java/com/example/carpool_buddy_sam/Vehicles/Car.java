@@ -4,6 +4,10 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
+/**
+ * Child class of Vehicle.
+ * Used to manage one type of vehicles and store all relevant information.
+ */
 //Car child class of Vehicle
 public class Car extends Vehicle {
 
@@ -23,14 +27,27 @@ public class Car extends Vehicle {
     }
 
     //Getters and setters
+
+    /**
+     * getter for range
+     * @return int of range
+     */
     public int getRange() {
         return range;
     }
 
+    /**
+     * setter for range
+     * @param range int of range
+     */
     public void setRange(int range) {
         this.range = range;
     }
 
+    /**
+     * toString method for Car
+     * @return String of : uid, name, email, userType, priceMultiplier, ownedVehicles, range
+     */
     //toString
     @Override
     public String toString() {

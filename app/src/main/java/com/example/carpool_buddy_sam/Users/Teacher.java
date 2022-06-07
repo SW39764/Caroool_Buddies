@@ -5,7 +5,10 @@ import com.example.carpool_buddy_sam.Vehicles.Vehicle;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-
+/**
+ * Child class of User.
+ * Used to manage one type of users and store all relevant information.
+ */
 //Teacher child class of User
 public class Teacher extends User{
 
@@ -25,14 +28,27 @@ public class Teacher extends User{
     }
 
     //Getters and Setters
+
+    /**
+     * getter for inSchoolTitle
+     * @return String of inSchoolTitle
+     */
     public String getInSchoolTitle() {
         return inSchoolTitle;
     }
 
+    /**
+     * setter for inSchoolTitle
+     * @param inSchoolTitle String
+     */
     public void setInSchoolTitle(String inSchoolTitle) {
         this.inSchoolTitle = inSchoolTitle;
     }
 
+    /**
+     * toString method for Teacher
+     * @return String of : uid, name, email, userType, priceMultiplier, ownedVehicles, inSchoolTitle
+     */
     //toString
     @Override
     public String toString() {

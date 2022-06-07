@@ -17,6 +17,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+
+/**
+ * Class for verification activity - used to verify user's email address
+ * @author Sam
+ * @version 1.0
+ */
 //activity that allows people to either sign in or go to activity where new account can be created
 public class AuthActivity extends AppCompatActivity {
 
@@ -28,6 +34,10 @@ public class AuthActivity extends AppCompatActivity {
     private EditText passwordField;
 
 
+    /**
+     * onCreate method - sets up the activity, establishes connection to firebase
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +52,12 @@ public class AuthActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.editTextPassword);
     }
 
+    /**
+     * onClick method - when a user clicks sign in button, it will attempt to sign in the user
+     * if it does not work it will provide an error message, if it does work it will go to the main activity
+     *
+     * @param v View
+     */
     public void signIn(View v){
         //get email and password from fields
         String emailString = emailField.getText().toString();
@@ -71,33 +87,12 @@ public class AuthActivity extends AppCompatActivity {
 
     }
 
-    //allows user to go to sign up activity by pressing a button
-//    public void signUp(View v){
-//        System.out.println("Sign Up");
-//
-//        String emailString = emailField.getText().toString();
-//        String passwordString = passwordField.getText().toString();
-//
-//        mAuth.createUserWithEmailAndPassword(emailString, passwordString).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()) {
-//                    FirebaseUser user = mAuth.getCurrentUser();
-//
-//                    Log.d("SIGN UP ", "Sucessfully signed up");
-//
-//                    updateUi(user);
-//                }
-//                else{
-//                    Log.w("SIGN UP", "createUserWithEmail:failure", task.getException());
-////                    Toast.makeText(this, "Authentication failed.",
-////                            Toast.LENGTH_SHORT).show();
-//                    updateUi(null);
-//                }
-//            }
-//        });
-//    }
 
+    /**
+     * onClick method - checks if user is signed in, if so, it will move to the main activity, otherwise it will not do anything
+     *
+     * @param currUser FirebaseUser to check if user is signed in
+     */
     //logs user in if sign in was successful and sends user to main activity
     public void updateUi(FirebaseUser currUser){
         if (currUser != null) {
@@ -106,6 +101,11 @@ public class AuthActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * onClick method - when a user clicks sign up button, moves user to sign up activity
+     *
+     * @param v View
+     */
     //sends user to sign up activity on button press
     public void otherLogin(View v){
         Intent intent = new Intent(this, CreateUserActivity.class);

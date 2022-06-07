@@ -2,6 +2,10 @@ package com.example.carpool_buddy_sam.Vehicles;
 
 import java.util.ArrayList;
 
+/**
+ * Child class of Vehicle.
+ * Used to manage one type of vehicles and store all relevant information.
+ */
 //Segway child class of Vehicle
 public class Segway extends Vehicle{
 
@@ -24,22 +28,43 @@ public class Segway extends Vehicle{
     }
 
     //Getters and setters
+
+    /**
+     * getter for range
+     * @return int of range
+     */
     public int getRange() {
         return range;
     }
 
+    /**
+     * setter for range
+     * @param range int of range
+     */
     public void setRange(int range) {
         this.range = range;
     }
 
+    /**
+     * getter for weightCapacity
+     * @return int of weightCapacity
+     */
     public int getWeightCapacity() {
         return weightCapacity;
     }
 
+    /**
+     * setter for weightCapacity
+     * @param weightCapacity int of weightCapacity
+     */
     public void setWeightCapacity(int weightCapacity) {
         this.weightCapacity = weightCapacity;
     }
 
+    /**
+     * toString for vehicleType
+     * @return String of range, weightCapacity, owner, model, capacity, vehicleID, ridersUIDs, open, vehicleType, basePrice
+     */
     //toString
     @Override
     public String toString() {

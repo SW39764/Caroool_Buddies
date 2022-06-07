@@ -35,6 +35,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * Class for specific vehicle info activity, allows user to view specific vehicle info
+ * Displays all of the information about the vehicle selected in the recycler view
+ */
 //shows info about specific vehicle selected in recyclerview
 public class specific_vehicle_info extends AppCompatActivity {
 
@@ -59,6 +63,11 @@ public class specific_vehicle_info extends AppCompatActivity {
 
     private ImageView iconImageView;
 
+    /**
+     * onCreate method - sets up the activity, adds spinner and layout as well as setting up connection to firebase
+     * gets bundle from previous activity =
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +136,9 @@ public class specific_vehicle_info extends AppCompatActivity {
 
     }
 
+    /**
+     * sets up the fields that all vehicles have as they inherit from vehicle
+     */
     //sets the fields that all vehicles have from parent class Vehicle
     public void commonFields() {
         linearLayout.removeAllViewsInLayout();
@@ -148,6 +160,10 @@ public class specific_vehicle_info extends AppCompatActivity {
 
     }
 
+    /**
+     * sets up the fields for the car class
+     * @param vehicle
+     */
     //sets the fields for a car
     public void setCarFields(Car vehicle) {
         range = new TextView(this);
@@ -173,6 +189,10 @@ public class specific_vehicle_info extends AppCompatActivity {
 
     }
 
+    /**
+     * sets up the fields for the bike class
+     * @param vehicle
+     */
     //sets the fields for a bike
     public void setBikeFields(Bycicle vehicle) {
         weight = new TextView(this);
@@ -197,6 +217,10 @@ public class specific_vehicle_info extends AppCompatActivity {
         linearLayout.addView(iconImageView);
     }
 
+    /**
+     * sets up the fields for the helicopter class
+     * @param vehicle
+     */
     //sets the fields for a helicopter
     public void setHeliCopterFields(HeliCopter vehicle) {
         maxAirSpeed = new TextView(this);
@@ -221,6 +245,10 @@ public class specific_vehicle_info extends AppCompatActivity {
         linearLayout.addView(iconImageView);
     }
 
+    /**
+     * sets up the fields for the segway class
+     * @param vehicle
+     */
     //sets the fields for a plane
     public void setSegwayFields(Segway vehicle) {
         range = new TextView(this);
@@ -244,6 +272,12 @@ public class specific_vehicle_info extends AppCompatActivity {
         linearLayout.addView(iconImageView);
     }
 
+    /**
+     * OnClick for when book button is pressed
+     * Checks if vehicle is open
+     * Books slot in vehicle
+     * @param view View for button press
+     */
     //when book button is clicked it will book one spot in the vehicle
     public void bookedPress(View view) {
 

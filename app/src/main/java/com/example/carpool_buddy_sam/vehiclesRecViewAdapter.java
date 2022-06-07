@@ -16,6 +16,9 @@ import com.example.carpool_buddy_sam.Vehicles.Vehicle;
 
 import java.util.ArrayList;
 
+/**
+ * Class for recycler-view view adapter
+ */
 public class vehiclesRecViewAdapter extends RecyclerView.Adapter<vehicleRecyclerViewViewHolder>{
 
 //    ArrayList<Vehicle> vehicles;
@@ -35,9 +38,12 @@ public class vehiclesRecViewAdapter extends RecyclerView.Adapter<vehicleRecycler
     }
 
 
-
-
-
+    /**
+     * onCreateViewHolder method - sets up the view holder
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public vehicleRecyclerViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -82,6 +88,10 @@ public class vehiclesRecViewAdapter extends RecyclerView.Adapter<vehicleRecycler
         holder.vehicleBasePrice.setText("Base Price : " + basePrice);
     }
 
+    /**
+     * getItemCount method - returns the size of the array list
+     * @return size of the array list of vehicles as int
+     */
     @Override
     public int getItemCount() {
         return vehicles.size();

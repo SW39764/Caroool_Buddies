@@ -32,6 +32,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+/**
+ * Class for user to create activity, works with create user activity
+ * User can pick between different types of users
+ */
 //Activity that creates new account for user and stores it in the database
 public class CreateUserActivity extends AppCompatActivity {
     //instance variables
@@ -50,6 +54,10 @@ public class CreateUserActivity extends AppCompatActivity {
     private String selectedRole;
 
 
+    /**
+     * onCreate method - sets up the activity, adds spinner and layout as well as setting up connection to firebase
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +74,9 @@ public class CreateUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method to setup spinner for user types
+     */
     // setup spinner where user selects what user type they want to make an account for
     private void setupSpinner() {
         String[] userTypes = {"Student", "Teacher", "Alumni", "Parent"};
@@ -91,6 +102,9 @@ public class CreateUserActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to add fields to the layout
+     */
     public void addFields() {
         //adds common fields that all user types inherit from parent class User
         commonFields();
@@ -126,6 +140,10 @@ public class CreateUserActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to add common fields to the layout
+     * fields that all user types inherit from parent class User
+     */
     public void commonFields() {
         //add common fields from User parent class
         layout.removeAllViewsInLayout();
@@ -140,6 +158,11 @@ public class CreateUserActivity extends AppCompatActivity {
         layout.addView(passwordField);
     }
 
+    /**
+     * OnClick Method - to create new user
+     * calls updateUI method to check if it was succesfull and move user to next activity
+     * @param v View
+     */
     //creates user account and sends to database
     public void signUp(View v) {
         //gets user input
@@ -197,6 +220,11 @@ public class CreateUserActivity extends AppCompatActivity {
         updateUI(user);
     }
 
+    /**
+     * Method to update UI
+     * if user is logged in it will move the user to the next activity
+     * @param currentUser FirebaseUser to check if user is logged in
+     */
     //if signup was successful, sends user to UserProfile activity
     public void updateUI(FirebaseUser currentUser) {
         if (currentUser != null) {

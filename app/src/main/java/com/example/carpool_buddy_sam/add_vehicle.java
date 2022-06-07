@@ -24,6 +24,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+/**
+ * Class for add vehicle activity - used to add a vehicle to the database
+ */
 //allows user to create new vehicle
 public class add_vehicle extends AppCompatActivity {
 
@@ -44,6 +47,10 @@ public class add_vehicle extends AppCompatActivity {
     private EditText owner;
 
 
+    /**
+     * onCreate method - sets up the activity, adds spinner and layout as well as setting up connection to firebase
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +66,14 @@ public class add_vehicle extends AppCompatActivity {
         setupSpinner();
     }
 
+    /**
+     * Creates new vehicle based on the users input on the activity and adds it to the database
+     * @param v View of the activity
+     * @throws Exception if the user inputs invalid data
+     * @thros IllegalArgumentException if the user inputs invalid data
+     * @throws Exception if database is unsuccessfull at adding vehicle
+     * @see Vehicle
+     */
     //creates vehicle based on user input and adds it to firebase
     public void addVehicle(View v){
         //create new document to store new vehicle
@@ -113,7 +128,10 @@ public class add_vehicle extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Sets up the spinner for the user to select the type of vehicle they want to add
+     * @see Vehicle
+     */
     //add all of the options to the spinner
     private void setupSpinner() {
         String[] userTypes = {"Bycicle", "Car", "Helicopter", "Segway"};
@@ -140,6 +158,10 @@ public class add_vehicle extends AppCompatActivity {
         });
     }
 
+    /**
+     * Adds the fields that each vehicle needs depending on the type of vehicle
+     * @see Vehicle
+     */
     public void addFields() {
         //adds fields that are common for all vehicles (instance variables of Vehicle class)
         commonFields();
@@ -180,6 +202,10 @@ public class add_vehicle extends AppCompatActivity {
 
     }
 
+    /**
+     * Adds the fields that are common for all vehicles (instance variables of Vehicle class)
+     * @see Vehicle
+     */
     //adds the common fields from the Vehicle class to the layout
     public void commonFields() {
         layout.removeAllViewsInLayout();

@@ -2,6 +2,10 @@ package com.example.carpool_buddy_sam.Users;
 
 import java.util.ArrayList;
 
+/**
+ * Child class of User.
+ * Used to manage one type of users and store all relevant information.
+ */
 //Alumni child class of User
 public class Alumni extends User{
 
@@ -24,16 +28,28 @@ public class Alumni extends User{
         this.graduateYear = graduateYear;
     }
 
+    /**
+     * getter for graduate year
+     * @return int of graduateYear
+     */
     //getters
     public int getGraduateYear() {
         return graduateYear;
     }
 
+    /**
+     * setter for graduate year
+     * @param graduateYear int of graduateYear
+    */
     //setters
     public void setGraduateYear(int graduateYear) {
         this.graduateYear = graduateYear;
     }
 
+    /**
+     * toString method for Alumni
+     * @return String of : uid, name, email, userType, priceMultiplier, ownedVehicles, graduateYear
+     */
     //toString
     @Override
     public String toString() {

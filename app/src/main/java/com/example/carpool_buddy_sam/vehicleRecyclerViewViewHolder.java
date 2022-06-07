@@ -7,6 +7,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * Class for recycler-view view holder
+ */
 public class vehicleRecyclerViewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     protected TextView vehicleModel;
     protected TextView vehicleType;
@@ -15,10 +18,13 @@ public class vehicleRecyclerViewViewHolder extends RecyclerView.ViewHolder imple
 
     protected ImageView icon;
 
-
-
     vehiclesRecViewAdapter.OnNoteListener onNoteListener;
 
+    /**
+     * Constructor for view holder
+     * @param itemView View for the view holder
+     * @param onNoteListener OnNoteListener for the view holder
+     */
     public vehicleRecyclerViewViewHolder(@NonNull View itemView, vehiclesRecViewAdapter.OnNoteListener onNoteListener) {
         super(itemView);
 
@@ -34,6 +40,10 @@ public class vehicleRecyclerViewViewHolder extends RecyclerView.ViewHolder imple
 
     }
 
+    /**
+     * onClick method for the view holder
+     * @param v View for the view holder
+     */
     @Override
     public void onClick(View v) {
         onNoteListener.onNoteClick(getAdapterPosition());
